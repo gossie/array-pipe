@@ -1,0 +1,10 @@
+dist: trusty
+sudo: required
+language: node_js
+addons:
+  firefox: latest
+node_js:
+  - "node"
+script:
+  - npm run ci:test
+  - npm run build

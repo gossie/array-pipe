@@ -1,0 +1,36 @@
+{
+  "name": "array-pipe",
+  "version": "0.0.1",
+  "description": "A pipe implementation for JavaScript arrays to increase runtime performance",
+  "scripts": {
+    "build": "webpack-cli",
+    "test": "karma start",
+    "ci:test": "karma start --browsers=FirefoxHeadless --singleRun=true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gossie/array-pipe.git"
+  },
+  "keywords": [
+    "javascript",
+    "array",
+    "pipe",
+    "polyfill"
+  ],
+  "author": "André Schreck",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gossie/array-pipe/issues"
+  },
+  "homepage": "https://github.com/gossie/array-pipe#readme",
+  "devDependencies": {
+    "jasmine": "3.2.0",
+    "karma": "3.0.0",
+    "karma-firefox-launcher": "1.2.0",
+    "karma-jasmine": "1.1.2",
+    "karma-requirejs": "^1.1.0",
+    "karma-webpack": "3.0.0",
+    "webpack": "4.16.5",
+    "webpack-cli": "3.1.0"
+  }
+}
