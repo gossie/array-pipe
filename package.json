@@ -25,8 +25,8 @@
   "homepage": "https://github.com/gossie/array-pipe#readme",
   "devDependencies": {
     "jasmine": "^3.5.0",
-    "karma": "*",
-    "karma-firefox-launcher": "*",
+    "karma": "4.4.1",
+    "karma-firefox-launcher": "1.2.0",
     "karma-jasmine": "^2.0.1",
     "karma-requirejs": "*",
     "karma-webpack": "^4.0.2",
