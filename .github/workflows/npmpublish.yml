@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
-      - uses: actions/firefox@latest
+      - uses: actions/firefox@v1
         with:
           node-version: 12
       - run: npm ci
