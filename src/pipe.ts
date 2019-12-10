@@ -22,7 +22,7 @@ function handleElement(element: any, operators: Array<Operator<any, any>>, resul
     let value: any = element;
 
     for (let i=0; i<operators.length; i++) {
-        value = operators[i](value);
+        value = operators[i].perform(value);
         if (value === undefined) break;
     }
     

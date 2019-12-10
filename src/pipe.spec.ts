@@ -1,6 +1,7 @@
 import './pipe';
 import filter from './operators/filter';
 import map from './operators/map';
+import distinct from './operators/distinct';
 
 describe('pipe', () => {
 
@@ -9,9 +10,10 @@ describe('pipe', () => {
     });
 
     it('should pipe', () => {
-        const result: Array<string> = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        const result: Array<string> = [0, 1, 1, 2, 3, 4, 2, 5, 6, 7, 2, 8, 9]
             .pipe(
                 filter((n: number) => n%2 == 0),
+                distinct(),
                 map((n: number) => n * 2),
                 map((n: number) => `${n} is even and doubled`)
             );
