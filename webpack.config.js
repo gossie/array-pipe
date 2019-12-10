@@ -12,11 +12,15 @@ module.exports = {
             },
         ],
     },
+    devtool: 'source-map',
     resolve: {
         extensions: [ '.ts', '.js' ],
     },
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, './build')
+        path: path.resolve(__dirname, './build'),
+        library: 'array-pipe',
+        libraryTarget: 'umd',
+        umdNamedDefine: true
     }
 }
