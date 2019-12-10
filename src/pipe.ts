@@ -2,7 +2,7 @@ import Operator from "./operators/operator";
 
 declare global {
     interface Array<T> {
-        pipe(...operators: Array<Operator<any, any>>): Array<T>
+        pipe(...operators: Array<Operator<any, any>>): Array<any>
     }
 }
 
@@ -21,8 +21,12 @@ if (!Array.prototype.pipe) {
 function handleElement(element: any, operators: Array<Operator<any, any>>, result: Array<any>) {
     let value: any = element;
 
-    operators.forEach((operator: Operator<any, any>) => value = operator(value));
-    if (value) {
+    for (let i=0; i<operators.length; i++) {
+        value = operators[i](value);
+        if (value === undefined) break;
+    }
+    
+    if (value !== undefined) {
         result.push(value);
     }
 }
