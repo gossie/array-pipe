@@ -3,7 +3,7 @@
 
 # array-pipe
 
-The projects define a pipe method as a polyfill for arrays, that enables the developer to perform multiple operations with only iterating over the array once.
+The project defines a pipe method as a polyfill for arrays, that enables the developer to perform multiple operations with only iterating over the array once.
 Imagin you have an array of numbers, want to drop all odd numbers, multiply the others with two and then concat a string. 
 ```typescript
 const result: Array<string> = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
