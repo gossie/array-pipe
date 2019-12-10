@@ -8,10 +8,10 @@ module.exports = function(config) {
             require('karma-webpack')
         ],
         files: [{
-            pattern: 'src/**/*.spec.js'
+            pattern: 'src/**/*.spec.ts'
         }],
         preprocessors: {
-            'src/**/*.spec.js': ['webpack']
+            'src/**/*.spec.ts': ['webpack']
         },
         webpack: require('./webpack.config'),
         browsers: ['Firefox'],
