@@ -9,11 +9,7 @@ class FilterOperation<T> implements Operator<T, T> {
     constructor(private tester: Predicate<T>) {}
 
     public perform(from: T): T {
-        if (this.tester(from)) {
-            return from;
-        } else {
-            return undefined;
-        }
+        return this.tester(from) ? from : undefined;
     }
 }
 
