@@ -1,6 +1,6 @@
 {
   "name": "array-pipe",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A pipe implementation for JavaScript arrays to increase runtime performance",
   "scripts": {
     "build": "webpack-cli",
@@ -30,10 +30,9 @@
   "devDependencies": {
     "@types/jasmine": "^3.5.0",
     "jasmine": "^3.5.0",
-    "karma": "4.4.1",
-    "karma-firefox-launcher": "1.2.0",
+    "karma": "^4.4.1",
+    "karma-firefox-launcher": "^1.2.0",
     "karma-jasmine": "^2.0.1",
-    "karma-requirejs": "*",
     "karma-webpack": "^4.0.2",
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.3",
