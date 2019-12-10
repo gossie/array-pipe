@@ -1,11 +1,13 @@
 {
     "compilerOptions": {
-        "outDir": "./build/",
+        "outDir": "./dist/",
         "noImplicitAny": true,
         "module": "commonjs",
         "target": "es5",
         "lib": [ "es2015", "dom" ],
         "jsx": "react",
-        //"declaration": true
-    }
+        "declaration": true
+    },
+    "include": ["src"],
+    "exclude": ["node_modules", "**/src/**/*.spec.ts"]
 }

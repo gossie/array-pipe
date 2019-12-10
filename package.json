@@ -1,11 +1,15 @@
 {
   "name": "@gossie/array-pipe",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "A pipe implementation for JavaScript arrays to increase runtime performance",
-  "main": "build/bundle.js",
-  "types": "build/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
-    "build": "webpack-cli",
+    "prepare": "npm run build",
+    "build": "tsc",
     "test": "karma start",
     "ci:test": "karma start --browsers=FirefoxHeadless --singleRun=true"
   },
@@ -35,10 +39,7 @@
     "karma": "^4.4.1",
     "karma-firefox-launcher": "^1.2.0",
     "karma-jasmine": "^2.0.1",
-    "karma-webpack": "^4.0.2",
-    "ts-loader": "^6.2.1",
-    "typescript": "^3.7.3",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "karma-typescript": "^4.1.1",
+    "typescript": "^3.7.3"
   }
 }
