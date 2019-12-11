@@ -19,6 +19,6 @@ class SomeOperator<T> extends TerminalOperator<T, boolean> {
     }
 }
 
-export default function filter<T>(tester: Predicate<T>): TerminalOperator<T, boolean> {
+export default function some<T>(tester: Predicate<T>): TerminalOperator<T, boolean> {
     return new SomeOperator<T>(tester);
 }

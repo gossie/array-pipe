@@ -38,6 +38,7 @@ No more elements are mapped or checked, because it is not necessary.
 * distinct
 * first
 * some
+* every
 
 ## Integration
 

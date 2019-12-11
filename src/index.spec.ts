@@ -4,6 +4,7 @@ import map from './operators/map';
 import distinct from './operators/distinct';
 import first from './operators/first';
 import some from './operators/some';
+import every from './operators/every';
 
 describe('pipe', () => {
 
@@ -43,7 +44,7 @@ describe('pipe', () => {
         expect(result).toEqual(undefined);
     });
 
-    it('should pipe and return true', () => {
+    it('should pipe and return true because some elements match criteria', () => {
         const result: number = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
             .pipe(
                 map((n: string) => parseInt(n)),
@@ -53,11 +54,31 @@ describe('pipe', () => {
         expect(result).toBeTrue();
     });
 
-    it('should pipe and return false', () => {
+    it('should pipe and return false because no element matches criteria', () => {
         const result: number = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
             .pipe(
                 map((n: string) => parseInt(n)),
                 some((n: number) => n >= 10)
+            );
+        
+        expect(result).toBeFalse();
+    });
+
+    it('should pipe and return true because all elements match criteria', () => {
+        const result: number = ['2', '4', '6', '8', '10', '12', '14', '16', '18', '20']
+            .pipe(
+                map((n: string) => parseInt(n)),
+                every((n: number) => n%2 === 0)
+            );
+        
+        expect(result).toBeTrue();
+    });
+
+    it('should pipe and return false because not all elements match criteria', () => {
+        const result: number = ['2', '4', '6', '8', '11', '12', '14', '16', '18', '20']
+            .pipe(
+                map((n: string) => parseInt(n)),
+                every((n: number) => n%2 === 0)
             );
         
         expect(result).toBeFalse();
