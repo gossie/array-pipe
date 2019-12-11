@@ -26,7 +26,7 @@ export abstract class TerminalOperator<F, T> extends Operator<F, T> {
         return true;
     }
 
-    public abstract getDefaultValue(): T;
+    public abstract getFallbackValue(): T;
 }
 
 export abstract class IntermediateOperator<F, T> extends Operator<F, T> {

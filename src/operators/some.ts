@@ -10,7 +10,7 @@ class SomeOperator<T> extends TerminalOperator<T, boolean> {
         super();
     }
 
-    public getDefaultValue(): boolean {
+    public getFallbackValue(): boolean {
         return false;
     }
 

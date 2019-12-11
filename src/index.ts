@@ -26,7 +26,7 @@ if (!Array.prototype.pipe) {
                     }
                 }
                 if (result === undefined) {
-                    result = (lastOperator as TerminalOperator<any, any>).getDefaultValue();
+                    result = (lastOperator as TerminalOperator<any, any>).getFallbackValue();
                 }
             } else {
                 result = []

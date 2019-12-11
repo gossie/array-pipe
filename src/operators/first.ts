@@ -10,7 +10,7 @@ class FirstOperator<T> extends TerminalOperator<T, T> {
         super();
     }
 
-    public getDefaultValue(): T {
+    public getFallbackValue(): T {
         return undefined;
     }
 
