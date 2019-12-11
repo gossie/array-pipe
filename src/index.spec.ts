@@ -1,4 +1,4 @@
-import './pipe';
+import './index';
 import filter from './operators/filter';
 import map from './operators/map';
 import distinct from './operators/distinct';
