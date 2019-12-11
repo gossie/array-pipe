@@ -2,16 +2,15 @@
   "name": "@gossie/array-pipe",
   "version": "0.0.13",
   "description": "A pipe implementation for JavaScript arrays to increase runtime performance",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist/**/*"
-  ],
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "prepare": "npm run build",
     "build": "tsc",
     "test": "karma start",
-    "ci:test": "karma start --browsers=FirefoxHeadless --singleRun=true"
+    "ci:test": "karma start --browsers=FirefoxHeadless --singleRun=true",
+    "copypackage": "cp -rf package.json dist",
+    "dist": "cd dist && npm publish"
   },
   "repository": {
     "type": "git",

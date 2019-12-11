@@ -39,6 +39,7 @@ jobs:
           registry-url: https://npm.pkg.github.com/
           scope: '@gossie'
       - run: npm ci
-      - run: npm publish
+      - run: npm run copypackage
+      - run: npm run dist
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_PACKAGES_TOKEN}}
