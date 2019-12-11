@@ -3,7 +3,7 @@
 
 # array-pipe
 
-The project defines a pipe method as a polyfill for arrays, that enables developers to perform multiple operations with only iterating over the array once.<br/>
+The project defines a pipe method as a polyfill for arrays, that enables developers to perform multiple operations with only iterating over as few elements as possible.<br/>
 Imagine you have an array of string encoded numbers and want to check if there is one that is dividable by two.
 ```typescript
 const result: boolean = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
@@ -19,7 +19,7 @@ const result: Array<string> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'
         some((n: number) => n%2 === 0)
     );
 ```
-The pipe polyfill with its operators will get the same result, but it won't map all elements before the check. Each element will be handled by all operators before the next element is processed. As soon as a result is found, it is returned and the handling is stopped.<br/>
+The pipe polyfill with its operators will get the same result, but it won't map all elements before the check. Each element will be handled by all operators (or if the element doesn't match a filter operator) before the next element is processed. As soon as a result is found, it is returned and the handling is stopped.<br/>
 The following table illustrates how the elements are streamed throught the operators.
 
 |Step| |map operator|some operator|                                                               |
@@ -31,9 +31,6 @@ The following table illustrates how the elements are streamed throught the opera
 
 No more elements are mapped or checked, because it is not necessary.
 
-
-The processing of an element stops if it doesn't match the predicate of a fillter operator.
-
 ## Current Operators
 
 * filter
@@ -41,3 +38,12 @@ The processing of an element stops if it doesn't match the predicate of a fillte
 * distinct
 * first
 * some
+
+## Integration
+
+After you installed the npm dependency you need to import @gossie/array-pipe so that the polyfill is activated. In addition the operators you want to use need to be imported. For the example above, it would look like this:
+```typescript
+import '@gossie/array-pipe';
+import map from '@gossie/array-pipe/operators/map';
+import some from '@gossie/array-pipe/operators/some';
+```
