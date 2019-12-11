@@ -4,9 +4,11 @@ interface Predicate<T> {
     (item: T): boolean;
 }
 
-class FilterOperation<T> implements Operator<T, T> {
+class FilterOperation<T> extends Operator<T, T> {
 
-    constructor(private tester: Predicate<T>) {}
+    constructor(private tester: Predicate<T>) {
+        super();
+    }
 
     public perform(from: T): T {
         return this.tester(from) ? from : undefined;

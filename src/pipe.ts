@@ -12,14 +12,13 @@ if (!Array.prototype.pipe) {
         if (!operators || operators.length === 0) {
             result = this;
         } else {
+            for (let i=1; i<operators.length; i++) {
+                operators[i-1].setSuccessor(operators[i]);
+            }
+
             result = []
             for (let i=0; i<this.length; i++) {
-                let value: any = this[i];
-                for (let j=0; j<operators.length; j++) {
-                    if (value !== undefined) {
-                        value = operators[j].perform(value);
-                    }
-                }
+                const value = operators[0].performChain(this[i]);
                 if (value !== undefined) {
                     result.push(value);
                 }

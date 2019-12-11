@@ -4,8 +4,11 @@ interface Mapper<F, T> {
     (from: F): T;
 }
 
-class MapOperator<F, T> implements Operator<F, T> {
-    constructor(private mapper: Mapper<F, T>) {}
+class MapOperator<F, T> extends Operator<F, T> {
+
+    constructor(private mapper: Mapper<F, T>) {
+        super();
+    }
     
     public perform(from: F): T {
         return this.mapper(from);

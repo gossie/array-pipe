@@ -1,6 +1,6 @@
 import Operator from "./operator";
 
-class DistinctOperator implements Operator<any, any> {
+class DistinctOperator extends Operator<any, any> {
 
     private pastValues: Set<any> = new Set();
 
