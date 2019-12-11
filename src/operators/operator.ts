@@ -4,6 +4,8 @@ export default abstract class Operator<F, T> {
 
     protected abstract perform(from: F): T;
 
+    public abstract isTerminal(): boolean;
+
     public performChain(from: F): any {
         const to: T = this.perform(from);
         if (this.next !== undefined && to !== undefined) {
@@ -16,4 +18,5 @@ export default abstract class Operator<F, T> {
     public setSuccessor(next: Operator<T, any>): void {
         this.next = next;
     }
+
 }

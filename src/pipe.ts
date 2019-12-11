@@ -2,13 +2,13 @@ import Operator from "./operators/operator";
 
 declare global {
     interface Array<T> {
-        pipe(...operators: Array<Operator<any, any>>): Array<any>
+        pipe(...operators: Array<Operator<any, any>>): Array<any> | any
     }
 }
 
 if (!Array.prototype.pipe) {
-    Array.prototype.pipe = function pipe(...operators: Array<Operator<any, any>>): Array<any> {
-        let result: Array<any>;
+    Array.prototype.pipe = function pipe(...operators: Array<Operator<any, any>>): Array<any> | any {
+        let result: Array<any> | any;
         if (!operators || operators.length === 0) {
             result = this;
         } else {
@@ -16,11 +16,22 @@ if (!Array.prototype.pipe) {
                 operators[i-1].setSuccessor(operators[i]);
             }
 
-            result = []
-            for (let i=0; i<this.length; i++) {
-                const value = operators[0].performChain(this[i]);
-                if (value !== undefined) {
-                    result.push(value);
+            const lastOperator: Operator<any, any> = operators[operators.length - 1];
+            if (lastOperator.isTerminal()) {
+                for (let i=0; i<this.length; i++) {
+                    const value = operators[0].performChain(this[i]);
+                    if (value !== undefined) {
+                        result = value;
+                        break;
+                    }
+                }
+            } else {
+                result = []
+                for (let i=0; i<this.length; i++) {
+                    const value = operators[0].performChain(this[i]);
+                    if (value !== undefined) {
+                        result.push(value);
+                    }
                 }
             }
         }

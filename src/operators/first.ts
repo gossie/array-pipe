@@ -4,14 +4,14 @@ interface Predicate<T> {
     (item: T): boolean;
 }
 
-class FilterOperator<T> extends Operator<T, T> {
+class FirstOperator<T> extends Operator<T, T> {
 
     constructor(private tester: Predicate<T>) {
         super();
     }
 
     public isTerminal(): boolean {
-        return false;
+        return true;
     }
 
     protected perform(from: T): T {
@@ -19,6 +19,6 @@ class FilterOperator<T> extends Operator<T, T> {
     }
 }
 
-export default function filter<T>(tester: Predicate<T>): Operator<T, T> {
-    return new FilterOperator<T>(tester);
+export default function first<T>(tester: Predicate<T>): Operator<T, T> {
+    return new FirstOperator<T>(tester);
 }

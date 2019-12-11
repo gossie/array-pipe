@@ -10,7 +10,11 @@ class MapOperator<F, T> extends Operator<F, T> {
         super();
     }
     
-    public perform(from: F): T {
+    public isTerminal(): boolean {
+        return false;
+    }
+
+    protected perform(from: F): T {
         return this.mapper(from);
     }
 

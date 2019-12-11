@@ -4,7 +4,11 @@ class DistinctOperator extends Operator<any, any> {
 
     private pastValues: Set<any> = new Set();
 
-    public perform(from: any): any {
+    public isTerminal(): boolean {
+        return false;
+    }
+
+    protected perform(from: any): any {
         if (this.pastValues.has(from)) {
             return undefined;
         } else {
