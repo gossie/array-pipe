@@ -9,7 +9,7 @@
     "build": "tsc",
     "test": "karma start",
     "ci:test": "karma start --browsers=FirefoxHeadless --singleRun=true",
-    "copypackage": "cp -rf package.json dist",
+    "copyfiles": "cp -rf package.json dist && cp -rf README.md dist && cp -rf LICENSE dist",
     "dist": "cd dist && npm publish"
   },
   "repository": {
