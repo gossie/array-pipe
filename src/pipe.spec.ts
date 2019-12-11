@@ -6,7 +6,7 @@ import distinct from './operators/distinct';
 describe('pipe', () => {
 
     it('should throw error if no operators are passed', () => {
-        expect(() => [0, 1, 2, 3].pipe()).toThrow(new Error('no operators were provided'));
+        expect([0, 1, 2, 3].pipe()).toEqual([0, 1, 2, 3]);
     });
 
     it('should pipe', () => {

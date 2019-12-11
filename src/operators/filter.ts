@@ -14,9 +14,5 @@ class FilterOperation<T> implements Operator<T, T> {
 }
 
 export default function filter<T>(tester: Predicate<T>): Operator<T, T> {
-    if(typeof(tester) !== 'function') {
-        throw new TypeError(tester + ' is not a function!');
-    }
-
     return new FilterOperation<T>(tester);
 }
