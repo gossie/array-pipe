@@ -1,5 +1,5 @@
 import filter from './filter';
-import Operator from './operator';
+import { Operator } from './operator';
 
 describe('filter', () => {
 

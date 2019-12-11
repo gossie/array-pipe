@@ -1,4 +1,4 @@
-export default abstract class Operator<F, T> {
+export abstract class Operator<F, T> {
 
     protected next: Operator<T, any>;
 
@@ -19,4 +19,18 @@ export default abstract class Operator<F, T> {
         this.next = next;
     }
 
+}
+
+export abstract class TerminalOperator<F, T> extends Operator<F, T> {
+    public isTerminal() {
+        return true;
+    }
+
+    public abstract getDefaultValue(): T;
+}
+
+export abstract class IntermediateOperator<F, T> extends Operator<F, T> {
+    public isTerminal() {
+        return false;
+    }
 }

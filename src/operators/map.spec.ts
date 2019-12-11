@@ -1,5 +1,5 @@
 import map from './map';
-import Operator from './operator';
+import { Operator } from './operator';
 
 describe('map', () => {
 

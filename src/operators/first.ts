@@ -1,17 +1,17 @@
-import Operator from "./operator";
+import { TerminalOperator } from "./operator";
 
 interface Predicate<T> {
     (item: T): boolean;
 }
 
-class FirstOperator<T> extends Operator<T, T> {
+class FirstOperator<T> extends TerminalOperator<T, T> {
 
     constructor(private tester: Predicate<T>) {
         super();
     }
 
-    public isTerminal(): boolean {
-        return true;
+    public getDefaultValue(): T {
+        return undefined;
     }
 
     protected perform(from: T): T {
@@ -19,6 +19,6 @@ class FirstOperator<T> extends Operator<T, T> {
     }
 }
 
-export default function first<T>(tester: Predicate<T>): Operator<T, T> {
+export default function first<T>(tester: Predicate<T>): TerminalOperator<T, T> {
     return new FirstOperator<T>(tester);
 }

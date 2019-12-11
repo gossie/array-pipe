@@ -3,6 +3,7 @@ import filter from './operators/filter';
 import map from './operators/map';
 import distinct from './operators/distinct';
 import first from './operators/first';
+import some from './operators/some';
 
 describe('pipe', () => {
 
@@ -30,5 +31,35 @@ describe('pipe', () => {
             );
         
         expect(result).toEqual(2);
+    });
+
+    it('should pipe and return undefined', () => {
+        const result: number = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+            .pipe(
+                map((n: string) => parseInt(n)),
+                first((n: number) => n%10 === 0)
+            );
+        
+        expect(result).toEqual(undefined);
+    });
+
+    it('should pipe and return true', () => {
+        const result: number = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+            .pipe(
+                map((n: string) => parseInt(n)),
+                some((n: number) => n > 5 && n < 10)
+            );
+        
+        expect(result).toBeTrue();
+    });
+
+    it('should pipe and return false', () => {
+        const result: number = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+            .pipe(
+                map((n: string) => parseInt(n)),
+                some((n: number) => n >= 10)
+            );
+        
+        expect(result).toBeFalse();
     });
 })

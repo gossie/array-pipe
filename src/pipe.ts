@@ -1,4 +1,4 @@
-import Operator from "./operators/operator";
+import { Operator, TerminalOperator } from './operators/operator';
 
 declare global {
     interface Array<T> {
@@ -24,6 +24,9 @@ if (!Array.prototype.pipe) {
                         result = value;
                         break;
                     }
+                }
+                if (result === undefined) {
+                    result = (lastOperator as TerminalOperator<any, any>).getDefaultValue();
                 }
             } else {
                 result = []

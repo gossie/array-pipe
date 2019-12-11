@@ -1,5 +1,5 @@
 import distinct from './distinct';
-import Operator from './operator';
+import { Operator } from './operator';
 
 describe('distinct', () => {
 

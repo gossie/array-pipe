@@ -1,17 +1,13 @@
-import Operator from "./operator";
+import { IntermediateOperator } from "./operator";
 
 interface Mapper<F, T> {
     (from: F): T;
 }
 
-class MapOperator<F, T> extends Operator<F, T> {
+class MapOperator<F, T> extends IntermediateOperator<F, T> {
 
     constructor(private mapper: Mapper<F, T>) {
         super();
-    }
-    
-    public isTerminal(): boolean {
-        return false;
     }
 
     protected perform(from: F): T {
@@ -20,6 +16,6 @@ class MapOperator<F, T> extends Operator<F, T> {
 
 }
 
-export default function map<F, T>(mapper: Mapper<F, T>): Operator<F, T> {
+export default function map<F, T>(mapper: Mapper<F, T>): IntermediateOperator<F, T> {
     return new MapOperator<F, T>(mapper);
 }

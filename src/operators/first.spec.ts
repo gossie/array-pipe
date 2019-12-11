@@ -1,5 +1,5 @@
 import first from './first';
-import Operator from './operator';
+import { Operator } from './operator';
 
 describe('first', () => {
 

@@ -1,12 +1,8 @@
-import Operator from "./operator";
+import { IntermediateOperator } from "./operator";
 
-class DistinctOperator extends Operator<any, any> {
+class DistinctOperator extends IntermediateOperator<any, any> {
 
     private pastValues: Set<any> = new Set();
-
-    public isTerminal(): boolean {
-        return false;
-    }
 
     protected perform(from: any): any {
         if (this.pastValues.has(from)) {
@@ -18,6 +14,6 @@ class DistinctOperator extends Operator<any, any> {
     }
 }
 
-export default function distinct(): Operator<any, any> {
+export default function distinct(): IntermediateOperator<any, any> {
     return new DistinctOperator();
 };
