@@ -1,4 +1,4 @@
-import { IntermediateOperator } from "./operator";
+import { IntermediateOperator, OperatorResult } from "./operator";
 
 interface Mapper<F, T> {
     (from: F): T;
@@ -10,8 +10,11 @@ class MapOperator<F, T> extends IntermediateOperator<F, T> {
         super();
     }
 
-    protected perform(from: F): T {
-        return this.mapper(from);
+    protected perform(from: F): OperatorResult<T> {
+        return {
+            value: this.mapper(from),
+            skip: false
+        };
     }
 
 }

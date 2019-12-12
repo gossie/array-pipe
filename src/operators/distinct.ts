@@ -1,15 +1,21 @@
-import { IntermediateOperator } from "./operator";
+import { IntermediateOperator, OperatorResult } from "./operator";
 
 class DistinctOperator extends IntermediateOperator<any, any> {
 
     private pastValues: Set<any> = new Set();
 
-    protected perform(from: any): any {
+    protected perform(from: any): OperatorResult<any> {
         if (this.pastValues.has(from)) {
-            return undefined;
+            return {
+                value: from,
+                skip: true
+            };
         } else {
             this.pastValues.add(from);
-            return from;
+            return {
+                value: from,
+                skip: false
+            };
         }
     }
 }

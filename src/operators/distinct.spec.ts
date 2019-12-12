@@ -11,8 +11,17 @@ describe('distinct', () => {
     it('should remove duplicated values', () => {
         const operator: Operator<number, number> = distinct();
 
-        expect(operator.performChain(5)).toBe(5);
-        expect(operator.performChain(6)).toBe(6);
-        expect(operator.performChain(5)).toBe(undefined);
+        expect(operator.performChain(5)).toEqual({
+            value: 5,
+            skip: false
+        });
+        expect(operator.performChain(6)).toEqual({
+            value: 6,
+            skip: false
+        })
+        expect(operator.performChain(5)).toEqual({
+            value: 5,
+            skip: true
+        })
     });
 });
