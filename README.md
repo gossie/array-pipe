@@ -31,9 +31,6 @@ The following table illustrates how the elements are streamed throught the opera
 
 No more elements are mapped or checked, because it is not necessary.
 
-If your code always needs to perform all operations on all elements in your array, you probably should stick to the original JavaScript methods. The pipe is only usefull if you use the first, some or every operator as last operator.<br/>
-Another case for using the pipe would be, if you need to write your own operator.
-
 ## Current Operators
 
 * filter
@@ -42,6 +39,11 @@ Another case for using the pipe would be, if you need to write your own operator
 * first
 * some
 * every
+
+## When is it usefull?
+
+If your code always needs to perform all operations on all elements in your array, you probably should stick to the original JavaScript methods. The pipe is only usefull if you use the `first`, `some` or `every` operator as last operator.<br/>
+Another case for using the pipe would be, if you need to write your own operator.
 
 ## Integration
 
