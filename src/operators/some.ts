@@ -1,4 +1,5 @@
-import { TerminalOperator } from "./operator";
+import { TerminalOperator, OperatorResult } from "./operator";
+
 
 interface Predicate<T> {
     (item: T): boolean;
@@ -14,8 +15,17 @@ class SomeOperator<T> extends TerminalOperator<T, boolean> {
         return false;
     }
 
-    protected perform(from: T): boolean {
-        return this.tester(from) || undefined;
+    protected perform(from: T): OperatorResult<boolean> {
+        if (this.tester(from)) {
+            return {
+                value: true,
+                skip: false
+            };
+        }
+        return {
+            value: undefined,
+            skip: true
+        };
     }
 }
 

@@ -1,4 +1,4 @@
-import { IntermediateOperator } from "./operator";
+import { IntermediateOperator, OperatorResult } from "./operator";
 
 interface Predicate<T> {
     (item: T): boolean;
@@ -10,8 +10,11 @@ class FilterOperator<T> extends IntermediateOperator<T, T> {
         super();
     }
 
-    protected perform(from: T): T {
-        return this.tester(from) ? from : undefined;
+    protected perform(from: T): OperatorResult<T> {
+        return {
+            value: from,
+            skip: !this.tester(from)
+        };
     }
 }
 

@@ -83,4 +83,22 @@ describe('pipe', () => {
         
         expect(result).toBeFalse();
     });
+
+    it('should pipe undefined and null values', () => {
+        const undefinedMapper = (s: string) => {
+            if (s === undefined || s === null) {
+                return '0';
+            }
+            return s;
+        };
+
+        const result: Array<number> = ['2', '4', '6', '-', null, '12', '14', undefined]
+            .pipe(
+                filter((s: string) => s !== '-'),
+                map(undefinedMapper),
+                map((s: string) => parseInt(s))
+            );
+
+        expect(result).toEqual([2, 4, 6, 0, 12, 14, 0]);
+    });
 })

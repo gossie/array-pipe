@@ -15,12 +15,18 @@ describe('some', () => {
 
     it('should match criteria', () => {
         const operator: Operator<number, boolean> = some((n: number) => n%2 === 0);
-        expect(operator.performChain(4)).toBeTrue();
+        expect(operator.performChain(4)).toEqual({
+            value: true,
+            skip: false
+        });
     });
 
     it('should not match criteria', () => {
         const operator: Operator<number, boolean> = some((n: number) => n%2 === 0);
-        expect(operator.performChain(5)).toBe(undefined);
+        expect(operator.performChain(5)).toEqual({
+            value: undefined,
+            skip: true
+        });
     });
 
 });

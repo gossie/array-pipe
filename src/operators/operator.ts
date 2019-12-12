@@ -1,15 +1,22 @@
+export interface OperatorResult<T> {
+
+    value: T;
+    skip: boolean;
+
+}
+
 export abstract class Operator<F, T> {
 
     protected next: Operator<T, any>;
 
-    protected abstract perform(from: F): T;
+    protected abstract perform(from: F): OperatorResult<T>;
 
     public abstract isTerminal(): boolean;
 
-    public performChain(from: F): any {
-        const to: T = this.perform(from);
-        if (this.next !== undefined && to !== undefined) {
-            return this.next.performChain(to);
+    public performChain(from: F): OperatorResult<T> {
+        const to: OperatorResult<T> = this.perform(from);
+        if (this.next !== undefined && !to.skip) {
+            return this.next.performChain(to.value);
         } else {
             return to;
         }

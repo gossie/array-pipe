@@ -1,4 +1,4 @@
-import { Operator, TerminalOperator } from './operators/operator';
+import { Operator, TerminalOperator, OperatorResult } from './operators/operator';
 
 declare global {
     interface Array<T> {
@@ -19,9 +19,9 @@ if (!Array.prototype.pipe) {
             const lastOperator: Operator<any, any> = operators[operators.length - 1];
             if (lastOperator.isTerminal()) {
                 for (let i=0; i<this.length; i++) {
-                    const value = operators[0].performChain(this[i]);
-                    if (value !== undefined) {
-                        result = value;
+                    const value: OperatorResult<any> = operators[0].performChain(this[i]);
+                    if (!value.skip) {
+                        result = value.value;
                         break;
                     }
                 }
@@ -31,9 +31,9 @@ if (!Array.prototype.pipe) {
             } else {
                 result = []
                 for (let i=0; i<this.length; i++) {
-                    const value = operators[0].performChain(this[i]);
-                    if (value !== undefined) {
-                        result.push(value);
+                    const value: OperatorResult<any> = operators[0].performChain(this[i]);
+                    if (!value.skip) {
+                        result.push(value.value);
                     }
                 }
             }
