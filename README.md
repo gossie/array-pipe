@@ -48,3 +48,7 @@ import '@gossie/array-pipe';
 import map from '@gossie/array-pipe/operators/map';
 import some from '@gossie/array-pipe/operators/some';
 ```
+
+## Try it out
+
+Go to the [https://gossie.github.io/array-pipe-test-app](array-pipe Test application) to compare different implementations.
