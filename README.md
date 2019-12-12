@@ -51,4 +51,4 @@ import some from '@gossie/array-pipe/operators/some';
 
 ## Try it out
 
-Go to the [https://gossie.github.io/array-pipe-test-app](array-pipe Test application) to compare different implementations.
+Go to the [array-pipe Test application](https://gossie.github.io/array-pipe-test-app) to compare different implementations.
