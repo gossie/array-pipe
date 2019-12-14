@@ -25,7 +25,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: npm ci
       - run: npm run copyfiles
-      - run: npm run dist
+      - run: npm run distNPM
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
@@ -41,6 +41,6 @@ jobs:
           scope: '@gossie'
       - run: npm ci
       - run: npm run copyfiles
-      - run: npm run dist
+      - run: npm run distGH
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_PACKAGES_TOKEN}}
