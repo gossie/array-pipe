@@ -10,14 +10,12 @@
     "test": "karma start",
     "ci:test": "karma start --browsers=FirefoxHeadless --singleRun=true",
     "copyfiles": "cp -rf package.json dist && cp -rf README.md dist && cp -rf LICENSE dist",
-    "dist": "cd dist && npm publish"
+    "distNPM": "cd dist && npm publish --registry=https://registry.npmjs.org/",
+    "distGH": "cd dist && npm publish --registry=https://npm.pkg.github.com/"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gossie/array-pipe.git"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
   },
   "keywords": [
     "javascript",
