@@ -11,7 +11,8 @@
     "ci:test": "karma start --browsers=FirefoxHeadless --singleRun=true",
     "copyfiles": "cp -rf package.json dist && cp -rf README.md dist && cp -rf LICENSE dist",
     "distNPM": "cd dist && npm publish --access public --registry=https://registry.npmjs.org/",
-    "distGH": "cd dist && npm publish --access public --registry=https://npm.pkg.github.com/"
+    "distGH": "cd dist && npm publish --access public --registry=https://npm.pkg.github.com/",
+    "stryker": "stryker init"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,9 @@
   },
   "homepage": "https://github.com/gossie/array-pipe#readme",
   "devDependencies": {
+    "@stryker-mutator/core": "^2.4.0",
+    "@stryker-mutator/jest-runner": "^2.4.0",
+    "@stryker-mutator/typescript": "^2.4.0",
     "@types/jasmine": "^3.5.0",
     "jasmine": "^3.5.0",
     "karma": "^4.4.1",
