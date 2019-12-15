@@ -10,7 +10,7 @@ describe('first', () => {
 
     it('should find value', () => {
         const operator: Operator<number, number> = first((n: number) => n%2 === 0);
-        expect(operator.performChain(4)).toEqual({
+        expect(operator.perform(4)).toEqual({
             value: 4,
             skip: false
         });
@@ -18,7 +18,7 @@ describe('first', () => {
 
     it('should not find value', () => {
         const operator: Operator<number, number> = first((n: number) => n%2 === 0);
-        expect(operator.performChain(5)).toEqual({
+        expect(operator.perform(5)).toEqual({
             value: 5,
             skip: true
         });

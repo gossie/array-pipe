@@ -14,7 +14,7 @@ class FirstOperator<T> extends TerminalOperator<T, T> {
         return undefined;
     }
 
-    protected perform(from: T): OperatorResult<T> {
+    public perform(from: T): OperatorResult<T> {
         return {
             value: from,
             skip: !this.tester(from)

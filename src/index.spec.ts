@@ -101,4 +101,25 @@ describe('pipe', () => {
 
         expect(result).toEqual([2, 4, 6, 0, 12, 14, 0]);
     });
+
+    it('should throw error if terminal operator is not the last one', () => {
+        expect(() => {
+            ['2', '4', '6', '8', '11', '12', '14', '16', '18', '20']
+                .pipe(
+                    every((n: number) => n%2 === 0),
+                    map((n: string) => parseInt(n))
+                );
+        }).toThrowError('terminal operator has to be the last one');
+    });
+
+    it('should throw error if there are more than one terminal operators', () => {
+        expect(() => {
+            ['2', '4', '6', '8', '11', '12', '14', '16', '18', '20']
+                .pipe(
+                    map((n: string) => parseInt(n)),
+                    every((n: number) => n%2 === 0),
+                    first((n: number) => n%2 === 0)
+                );
+        }).toThrowError('there can only be one terminal operator');
+    });
 })

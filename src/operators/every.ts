@@ -14,7 +14,7 @@ class EveryOperator<T> extends TerminalOperator<T, boolean> {
         return true;
     }
 
-    protected perform(from: T): OperatorResult<boolean> {
+    public perform(from: T): OperatorResult<boolean> {
         if (!this.tester(from)) {
             return {
                 value: false,

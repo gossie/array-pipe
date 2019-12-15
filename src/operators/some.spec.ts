@@ -15,7 +15,7 @@ describe('some', () => {
 
     it('should match criteria', () => {
         const operator: Operator<number, boolean> = some((n: number) => n%2 === 0);
-        expect(operator.performChain(4)).toEqual({
+        expect(operator.perform(4)).toEqual({
             value: true,
             skip: false
         });
@@ -23,7 +23,7 @@ describe('some', () => {
 
     it('should not match criteria', () => {
         const operator: Operator<number, boolean> = some((n: number) => n%2 === 0);
-        expect(operator.performChain(5)).toEqual({
+        expect(operator.perform(5)).toEqual({
             value: undefined,
             skip: true
         });

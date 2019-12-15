@@ -10,7 +10,7 @@ class MapOperator<F, T> extends IntermediateOperator<F, T> {
         super();
     }
 
-    protected perform(from: F): OperatorResult<T> {
+    public perform(from: F): OperatorResult<T> {
         return {
             value: this.mapper(from),
             skip: false

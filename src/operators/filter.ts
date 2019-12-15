@@ -10,7 +10,7 @@ class FilterOperator<T> extends IntermediateOperator<T, T> {
         super();
     }
 
-    protected perform(from: T): OperatorResult<T> {
+    public perform(from: T): OperatorResult<T> {
         return {
             value: from,
             skip: !this.tester(from)

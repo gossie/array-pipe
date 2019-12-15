@@ -15,7 +15,7 @@ describe('every', () => {
 
     it('should match criteria', () => {
         const operator: Operator<number, boolean> = every((n: number) => n%2 === 0);
-        expect(operator.performChain(4)).toEqual({
+        expect(operator.perform(4)).toEqual({
             value: undefined,
             skip: true
         });
@@ -23,7 +23,7 @@ describe('every', () => {
 
     it('should not match criteria', () => {
         const operator: Operator<number, boolean> = every((n: number) => n%2 === 0);
-        expect(operator.performChain(5)).toEqual({
+        expect(operator.perform(5)).toEqual({
             value: false,
             skip: false
         });

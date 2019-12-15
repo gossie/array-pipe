@@ -4,7 +4,7 @@ class DistinctOperator extends IntermediateOperator<any, any> {
 
     private pastValues: Set<any> = new Set();
 
-    protected perform(from: any): OperatorResult<any> {
+    public perform(from: any): OperatorResult<any> {
         if (this.pastValues.has(from)) {
             return {
                 value: from,

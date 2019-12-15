@@ -9,22 +9,9 @@ export abstract class Operator<F, T> {
 
     protected next: Operator<T, any>;
 
-    protected abstract perform(from: F): OperatorResult<T>;
+    public abstract perform(from: F): OperatorResult<T>;
 
     public abstract isTerminal(): boolean;
-
-    public performChain(from: F): OperatorResult<T> {
-        const to: OperatorResult<T> = this.perform(from);
-        if (this.next !== undefined && !to.skip) {
-            return this.next.performChain(to.value);
-        } else {
-            return to;
-        }
-    }
-
-    public setSuccessor(next: Operator<T, any>): void {
-        this.next = next;
-    }
 
 }
 
