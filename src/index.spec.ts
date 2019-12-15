@@ -51,7 +51,7 @@ describe('pipe', () => {
                 some((n: number) => n > 5 && n < 10)
             );
         
-        expect(result).toBeTrue();
+        expect(result).toBeTruthy();
     });
 
     it('should pipe and return false because no element matches criteria', () => {
@@ -61,7 +61,7 @@ describe('pipe', () => {
                 some((n: number) => n >= 10)
             );
         
-        expect(result).toBeFalse();
+        expect(result).toBeFalsy();
     });
 
     it('should pipe and return true because all elements match criteria', () => {
@@ -71,7 +71,7 @@ describe('pipe', () => {
                 every((n: number) => n%2 === 0)
             );
         
-        expect(result).toBeTrue();
+        expect(result).toBeTruthy();
     });
 
     it('should pipe and return false because not all elements match criteria', () => {
@@ -81,7 +81,7 @@ describe('pipe', () => {
                 every((n: number) => n%2 === 0)
             );
         
-        expect(result).toBeFalse();
+        expect(result).toBeFalsy();
     });
 
     it('should pipe undefined and null values', () => {
