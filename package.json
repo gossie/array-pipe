@@ -1,6 +1,6 @@
 {
   "name": "@gossie/array-pipe",
-  "version": "0.3.0",
+  "version": "0.5.0",
   "description": "A pipe implementation for JavaScript arrays to increase runtime performance",
   "main": "index.js",
   "types": "index.d.ts",
@@ -10,14 +10,12 @@
     "test": "karma start",
     "ci:test": "karma start --browsers=FirefoxHeadless --singleRun=true",
     "copyfiles": "cp -rf package.json dist && cp -rf README.md dist && cp -rf LICENSE dist",
-    "dist": "cd dist && npm publish"
+    "distNPM": "cd dist && npm publish --access public --registry=https://registry.npmjs.org/",
+    "distGH": "cd dist && npm publish --access public --registry=https://npm.pkg.github.com/"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gossie/array-pipe.git"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
   },
   "keywords": [
     "javascript",

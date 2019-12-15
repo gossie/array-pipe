@@ -22,12 +22,12 @@ const result: Array<string> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'
 The pipe polyfill with its operators will get the same result, but it won't map all elements before the check. Each element will be handled by all operators (or if the element doesn't match a filter operator) before the next element is processed. As soon as a result is found, it is returned and the handling is stopped.<br/>
 The following table illustrates how the elements are streamed throught the operators.
 
-|Step| |map operator|some operator|                                                               |
-|----|-|------------|-------------|---------------------------------------------------------------|
-|   1| |         '1'|             |'1' is mapped                                                  |
-|   2| |            |            1|1 is checked -> check fails                                    |
-|   3| |         '2'|             |'2' is mapped                                                  |
-|   4| |            |            2|2 is checked -> check succeeds and true is returned by the pipe|
+|      | |map operator|some operator|                                                               |
+|------|-|------------|-------------|---------------------------------------------------------------|
+|Step 1| |         '1'|             |'1' is mapped                                                  |
+|Step 2| |            |            1|1 is checked -> check fails                                    |
+|Step 3| |         '2'|             |'2' is mapped                                                  |
+|Step 4| |            |            2|2 is checked -> check succeeds and true is returned by the pipe|
 
 No more elements are mapped or checked, because it is not necessary.
 
