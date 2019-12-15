@@ -11,7 +11,7 @@ class FirstOperator<T> extends TerminalOperator<T, T> {
     }
 
     public getFallbackValue(): T {
-        return undefined;
+        return null;
     }
 
     public perform(from: T): OperatorResult<T> {

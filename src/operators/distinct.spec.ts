@@ -5,7 +5,7 @@ describe('distinct', () => {
 
     it('should not be terminal', () => {
         const operator: Operator<number, number> = distinct();
-        expect(operator.isTerminal()).toBeFalsy();
+        expect(operator.isTerminal()).toBe(false);
     });
 
     it('should remove duplicated values', () => {

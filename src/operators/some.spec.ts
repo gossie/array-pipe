@@ -10,7 +10,7 @@ describe('some', () => {
 
     it('should have fallback value', () => {
         const operator: TerminalOperator<number, boolean> = some((n: number) => n%2 === 0);
-        expect(operator.getFallbackValue()).toBeFalse();
+        expect(operator.getFallbackValue()).toBe(false);
     });
 
     it('should match criteria', () => {
@@ -24,7 +24,7 @@ describe('some', () => {
     it('should not match criteria', () => {
         const operator: Operator<number, boolean> = some((n: number) => n%2 === 0);
         expect(operator.perform(5)).toEqual({
-            value: undefined,
+            value: null,
             skip: true
         });
     });

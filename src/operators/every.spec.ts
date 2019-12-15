@@ -10,13 +10,13 @@ describe('every', () => {
 
     it('should have fallback value', () => {
         const operator: TerminalOperator<number, boolean> = every((n: number) => n%2 === 0);
-        expect(operator.getFallbackValue()).toBeTrue();
+        expect(operator.getFallbackValue()).toBeTruthy();
     });
 
     it('should match criteria', () => {
         const operator: Operator<number, boolean> = every((n: number) => n%2 === 0);
         expect(operator.perform(4)).toEqual({
-            value: undefined,
+            value: null,
             skip: true
         });
     });

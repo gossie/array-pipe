@@ -1,5 +1,5 @@
 import first from './first';
-import { Operator } from './operator';
+import { Operator, TerminalOperator } from './operator';
 
 describe('first', () => {
 
@@ -7,6 +7,11 @@ describe('first', () => {
         const operator: Operator<number, number> = first((n: number) => n%2 === 0);
         expect(operator.isTerminal).toBeTruthy();
     });
+
+    it('should have null as fallback value', () => {
+        const operator: TerminalOperator<number, number> = first((n: number) => n%2 === 0);
+        expect(operator.getFallbackValue()).toBeNull();
+    })
 
     it('should find value', () => {
         const operator: Operator<number, number> = first((n: number) => n%2 === 0);

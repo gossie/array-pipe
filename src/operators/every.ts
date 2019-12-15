@@ -22,7 +22,7 @@ class EveryOperator<T> extends TerminalOperator<T, boolean> {
             };
         }
         return {
-            value: undefined,
+            value: null,
             skip: true
         };
     }
