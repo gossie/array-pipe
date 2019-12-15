@@ -6,7 +6,7 @@ class ChainedOperator<F, T> {
 
      public performChain(from: F): OperatorResult<T> {
         const to: OperatorResult<T> = this.delegate.perform(from);
-        if (this.delegate !== undefined && !to.skip && this.next !== undefined) {
+        if (!to.skip && this.next !== undefined) {
             return this.next.performChain(to.value);
         } else {
             return to;
@@ -35,12 +35,7 @@ function determineRootOfChain(operators: Array<Operator<any, any>>): ChainedOper
                 throw Error('terminal operator has to be the last one');
             }
         }
-
-        if (chainedOperator === undefined) {
-            chainedOperator = new ChainedOperator(operators[i], undefined);
-        } else {
-            chainedOperator = new ChainedOperator(operators[i], chainedOperator);
-        }
+        chainedOperator = new ChainedOperator(operators[i], chainedOperator);
     }
     return chainedOperator;
 }
@@ -52,8 +47,6 @@ if (!Array.prototype.pipe) {
             result = this;
         } else {
             const root: ChainedOperator<any, any> = determineRootOfChain(operators);
-
-            
             const lastOperator: Operator<any, any> = operators[operators.length - 1];
             if (lastOperator.isTerminal()) {
                 for (let i=0; i<this.length; i++) {
@@ -63,7 +56,7 @@ if (!Array.prototype.pipe) {
                         break;
                     }
                 }
-                if (result === undefined) {
+                if (result == null) {
                     result = (lastOperator as TerminalOperator<any, any>).getFallbackValue();
                 }
             } else {

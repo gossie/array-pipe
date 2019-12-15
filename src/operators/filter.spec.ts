@@ -5,7 +5,7 @@ describe('filter', () => {
 
     it('should not be terminal', () => {
         const operator: Operator<number, number> = filter((item: number) => item%2 === 0);
-        expect(operator.isTerminal()).toBeFalsy();
+        expect(operator.isTerminal()).toBe(false);
     });
 
     it('should match', () => {

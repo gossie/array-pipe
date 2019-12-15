@@ -8,7 +8,7 @@
     "prepare": "npm run build",
     "build": "tsc",
     "test": "jest",
-    "ci:test": "jest",
+    "test:mutation": "stryker run",
     "copyfiles": "cp -rf package.json dist && cp -rf README.md dist && cp -rf LICENSE dist",
     "distNPM": "cd dist && npm publish --access public --registry=https://registry.npmjs.org/",
     "distGH": "cd dist && npm publish --access public --registry=https://npm.pkg.github.com/"
@@ -31,6 +31,9 @@
   },
   "homepage": "https://github.com/gossie/array-pipe#readme",
   "devDependencies": {
+    "@stryker-mutator/core": "^2.4.0",
+    "@stryker-mutator/jest-runner": "^2.4.0",
+    "@stryker-mutator/typescript": "^2.4.0",
     "@babel/core": "^7.7.5",
     "@babel/preset-env": "^7.7.6",
     "@babel/preset-typescript": "^7.7.4",

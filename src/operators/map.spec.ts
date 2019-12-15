@@ -5,7 +5,7 @@ describe('map', () => {
 
     it('should not be terminal', () => {
         const operator: Operator<number, number> = map((item: number) => item + 1);
-        expect(operator.isTerminal()).toBeFalsy();
+        expect(operator.isTerminal()).toBe(false);
     });
 
     it('should map', () => {
