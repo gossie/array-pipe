@@ -7,8 +7,8 @@
   "scripts": {
     "prepare": "npm run build",
     "build": "tsc",
-    "test": "karma start",
-    "ci:test": "karma start --browsers=FirefoxHeadless --singleRun=true",
+    "test": "jest",
+    "ci:test": "jest",
     "copyfiles": "cp -rf package.json dist && cp -rf README.md dist && cp -rf LICENSE dist",
     "distNPM": "cd dist && npm publish --access public --registry=https://registry.npmjs.org/",
     "distGH": "cd dist && npm publish --access public --registry=https://npm.pkg.github.com/"
@@ -31,12 +31,12 @@
   },
   "homepage": "https://github.com/gossie/array-pipe#readme",
   "devDependencies": {
-    "@types/jasmine": "^3.5.0",
-    "jasmine": "^3.5.0",
-    "karma": "^4.4.1",
-    "karma-firefox-launcher": "^1.2.0",
-    "karma-jasmine": "^2.0.1",
-    "karma-typescript": "^4.1.1",
+    "@babel/core": "^7.7.5",
+    "@babel/preset-env": "^7.7.6",
+    "@babel/preset-typescript": "^7.7.4",
+    "@types/jest": "^24.0.23",
+    "babel-jest": "^24.9.0",
+    "jest": "^24.9.0",
     "typescript": "^3.7.3"
   }
 }
