@@ -48,8 +48,7 @@ Removes duplicated elements. It's important to not, that this is a statefull ope
 
 ### Terminal Operators
 
-A terminal operator has to be the last one in a pipe. Also, there can only be on terminal operator in a pipe.<br />
-If the terminal operator 
+A terminal operator has to be the last one in a pipe. Also, there can only be on terminal operator in a pipe.
 
 * __first__<br />
 Gets a function that takes an element and returns a boolean. If an element is evaluated to true that element is immediately returned by the pipe.
