@@ -37,9 +37,9 @@ No more elements are mapped or checked, because it is not necessary.
 
 There can be as many intermediate operators as you want in a pipe. In an intermediate operator is the last operator of a pipe, the result of the pipe call will be an array.
 
-* __filter__<br />
+* __filter__
 Gets a function that takes an element and returns a boolean. The elements where the function returns true survive.
-* __map__<br />
+* __map__
 Gets a function and applies each element to that function.
 * __flatMap__
 The operator gets a function that maps to an array of elements and flattens them.
@@ -50,11 +50,11 @@ Removes duplicated elements. It's important to not, that this is a statefull ope
 
 A terminal operator has to be the last one in a pipe. Also, there can only be on terminal operator in a pipe.
 
-* __first__<br />
+* __first__
 Gets a function that takes an element and returns a boolean. If an element is evaluated to true that element is immediately returned by the pipe.
-* __some__<br />
+* __some__
 Some works similar to the `first`-operator except that not the element is returned, but the value `true` as soon as the passed function evaluates to true.
-* __every__<br />
+* __every__
 `every` also applies the passed function to each element. As soon as one element does not evaluate to `true` the pipe immediately returns `false`. 
 
 ## When is it usefull?
