@@ -13,7 +13,8 @@ class FlatMapOperator<F, T> extends IntermediateOperator<F, T> {
     public perform(from: F): OperatorResult<T> {
         return {
             value: this.mapper(from),
-            skip: false
+            skip: false,
+            needsFlattening: true
         };
     }
 

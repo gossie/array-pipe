@@ -1,14 +1,27 @@
 import { Operator, TerminalOperator, OperatorResult } from './operators/operator';
 
-class ChainedOperator<F, T> {
-    constructor(private delegate: Operator<F, T>,
-                 private next: ChainedOperator<T, any>) {}
+class ChainedOperator<F> {
+    constructor(private delegate: Operator<F, any>,
+                 private next: ChainedOperator<any>) {}
 
-    public performChain(from: F): OperatorResult<T> {
-        let result: OperatorResult<T>;
-        const to: OperatorResult<T> = this.delegate.perform(from);
+    public performChain(from: F): OperatorResult<any> {
+        let result: OperatorResult<any>;
+        const to: OperatorResult<any> = this.delegate.perform(from);
         if (!to.skip && this.next !== undefined) {
-            result = this.next.performChain(to.value);
+            if (to.needsFlattening) {
+                const tmp: Array<any> = [];
+                for (let i=0; i<to.value.length; i++) {
+                    const value: OperatorResult<any> = this.next.performChain(to.value[i]);
+                    tmp.push(value.value);
+                }
+                result = {
+                    value: tmp,
+                    skip: false,
+                    needsFlattening: true
+                }
+            } else {
+                result = this.next.performChain(to.value);
+            }
         } else {
             result = to;
         }
@@ -33,8 +46,8 @@ function checkOperators(operators: Array<Operator<any, any>>): void {
     }
 }
 
-function determineRootOfChain(operators: Array<Operator<any, any>>): ChainedOperator<any, any> {
-    let chainedOperator: ChainedOperator<any, any> = undefined;
+function determineRootOfChain(operators: Array<Operator<any, any>>): ChainedOperator<any> {
+    let chainedOperator: ChainedOperator<any> = undefined;
     for (let i=operators.length - 1; i>=0; i--) {
         chainedOperator = new ChainedOperator(operators[i], chainedOperator);
     }
@@ -55,7 +68,7 @@ if (!Array.prototype.pipe) {
         } else {
             checkOperators(operators);
 
-            const root: ChainedOperator<any, any> = determineRootOfChain(operators);
+            const root: ChainedOperator<any> = determineRootOfChain(operators);
             const lastOperator: Operator<any, any> = operators[operators.length - 1];
             if (lastOperator.isTerminal()) {
                 for (let i=0; i<this.length; i++) {
@@ -73,7 +86,13 @@ if (!Array.prototype.pipe) {
                 for (let i=0; i<this.length; i++) {
                     const value: OperatorResult<any> = root.performChain(this[i]);
                     if (!value.skip) {
-                        result.push(value.value);
+                        if (value.needsFlattening) {
+                            for (let j=0; j<value.value.length; j++) {
+                                result.push(value.value[j]);
+                            }
+                        } else {
+                            result.push(value.value);
+                        }
                     }
                 }
             }

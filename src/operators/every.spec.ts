@@ -17,7 +17,8 @@ describe('every', () => {
         const operator: Operator<number, boolean> = every((n: number) => n%2 === 0);
         expect(operator.perform(4)).toEqual({
             value: null,
-            skip: true
+            skip: true,
+            needsFlattening: false
         });
     });
 
@@ -25,7 +26,8 @@ describe('every', () => {
         const operator: Operator<number, boolean> = every((n: number) => n%2 === 0);
         expect(operator.perform(5)).toEqual({
             value: false,
-            skip: false
+            skip: false,
+            needsFlattening: false
         });
     });
 

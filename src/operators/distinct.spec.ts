@@ -13,15 +13,18 @@ describe('distinct', () => {
 
         expect(operator.perform(5)).toEqual({
             value: 5,
-            skip: false
+            skip: false,
+            needsFlattening: false
         });
         expect(operator.perform(6)).toEqual({
             value: 6,
-            skip: false
+            skip: false,
+            needsFlattening: false
         })
         expect(operator.perform(5)).toEqual({
             value: 5,
-            skip: true
+            skip: true,
+            needsFlattening: false
         })
     });
 });

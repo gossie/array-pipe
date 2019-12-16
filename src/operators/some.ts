@@ -19,12 +19,14 @@ class SomeOperator<T> extends TerminalOperator<T, boolean> {
         if (this.tester(from)) {
             return {
                 value: true,
-                skip: false
+                skip: false,
+                needsFlattening: false
             };
         }
         return {
             value: null,
-            skip: true
+            skip: true,
+            needsFlattening: false
         };
     }
 }
