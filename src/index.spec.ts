@@ -138,7 +138,7 @@ describe('pipe', () => {
                 expect(result).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
             });
 
-            fit('should pipe with flatMap as intermediate operator', () => {
+            it('should pipe with flatMap as intermediate operator', () => {
                 const result: number = ['1', '3', '5', '7', '9']
                     .pipe(
                         map((s: string) => parseInt(s)),
@@ -160,6 +160,7 @@ describe('pipe', () => {
                 
                 expect(result).toBeTruthy();
             });
+            
         })
 
     });

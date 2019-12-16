@@ -6,8 +6,6 @@ node_js:
   - "node"
 script:
   - rm -r dist
-  - rm -r coverage
-  - rm -r .stryker-tmp
   - npm run test:ci
   - npm run test:mutation
   - npm run build
