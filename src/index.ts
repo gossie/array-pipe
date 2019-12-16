@@ -11,7 +11,7 @@ class ChainedOperator<F> {
     public performChain(from: F, context: ChainContext): OperatorResult<any> {
         let result: OperatorResult<any>;
         const to: OperatorResult<any> = this.delegate.perform(from);
-        if (!to.skip && this.next !== undefined) {
+        if (!to.skip && this.next) {
             if (to.needsFlattening) {
                 const tmp: Array<any> = [];
                 for (let i=0; i<to.value.length; i++) {
@@ -68,6 +68,38 @@ declare global {
     }
 }
 
+function handleTerminalPipe(chainedOperator: ChainedOperator<any>, array: Array<any>, lastOperator: Operator<any, any>): any {
+    let result: any;
+    for (let i=0; i<array.length; i++) {
+        const value: OperatorResult<any> = chainedOperator.performChain(array[i], { lastOperatorIsTerminal: true });
+        if (!value.skip) {
+            result = value.value;
+            break;
+        }
+    }
+    if (result == null) {
+        result = (lastOperator as TerminalOperator<any, any>).getFallbackValue();
+    }
+    return result;
+}
+
+function handleIntermediateType(chainedOperator: ChainedOperator<any>, array: Array<any>): Array<any> {
+    const result: Array<any> = []
+    for (let i=0; i<array.length; i++) {
+        const value: OperatorResult<any> = chainedOperator.performChain(array[i], { lastOperatorIsTerminal: false });
+        if (!value.skip) {
+            if (value.needsFlattening) {
+                for (let j=0; j<value.value.length; j++) {
+                    result.push(value.value[j]);
+                }
+            } else {
+                result.push(value.value);
+            }
+        }
+    }
+    return result;
+}
+
 if (!Array.prototype.pipe) {
     Array.prototype.pipe = function pipe(...operators: Array<Operator<any, any>>): Array<any> | any {
         let result: Array<any> | any;
@@ -78,32 +110,9 @@ if (!Array.prototype.pipe) {
 
             const root: ChainedOperator<any> = determineRootOfChain(operators);
             const lastOperator: Operator<any, any> = operators[operators.length - 1];
-            if (lastOperator.isTerminal()) {
-                for (let i=0; i<this.length; i++) {
-                    const value: OperatorResult<any> = root.performChain(this[i], { lastOperatorIsTerminal: true });
-                    if (!value.skip) {
-                        result = value.value;
-                        break;
-                    }
-                }
-                if (result == null) {
-                    result = (lastOperator as TerminalOperator<any, any>).getFallbackValue();
-                }
-            } else {
-                result = []
-                for (let i=0; i<this.length; i++) {
-                    const value: OperatorResult<any> = root.performChain(this[i], { lastOperatorIsTerminal: false });
-                    if (!value.skip) {
-                        if (value.needsFlattening) {
-                            for (let j=0; j<value.value.length; j++) {
-                                result.push(value.value[j]);
-                            }
-                        } else {
-                            result.push(value.value);
-                        }
-                    }
-                }
-            }
+            const handler = lastOperator.isTerminal() ? handleTerminalPipe : handleIntermediateType;
+
+            result = handler(root, this, lastOperator);
         }
         return result;
     };
