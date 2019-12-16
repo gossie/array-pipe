@@ -1,6 +1,6 @@
 {
   "name": "@gossie/array-pipe",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "A pipe implementation for JavaScript arrays to increase runtime performance",
   "main": "index.js",
   "types": "index.d.ts",
