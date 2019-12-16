@@ -1,21 +1,17 @@
 import { Operator, TerminalOperator, OperatorResult } from './operators/operator';
 
-interface ChainContext {
-    lastOperatorIsTerminal: boolean
-}
-
 class ChainedOperator<F> {
     constructor(private delegate: Operator<F, any>,
                 private next: ChainedOperator<any>) {}
 
-    public performChain(from: F, context: ChainContext): OperatorResult<any> {
+    public performChain(from: F): OperatorResult<any> {
         let result: OperatorResult<any>;
         const to: OperatorResult<any> = this.delegate.perform(from);
         if (!to.skip && this.next) {
             if (to.needsFlattening) {
                 const tmp: Array<any> = [];
                 for (let i=0; i<to.value.length; i++) {
-                    const value: OperatorResult<any> = this.next.performChain(to.value[i], context);
+                    const value: OperatorResult<any> = this.next.performChain(to.value[i]);
                     tmp.push(value.value);
                 }
                 result = {
@@ -24,7 +20,7 @@ class ChainedOperator<F> {
                     needsFlattening: true
                 }
             } else {
-                result = this.next.performChain(to.value, context);
+                result = this.next.performChain(to.value);
             }
         } else {
             result = to;
@@ -67,7 +63,7 @@ declare global {
 function handleTerminalPipe(chainedOperator: ChainedOperator<any>, array: Array<any>, lastOperator: Operator<any, any>): any {
     let result: any;
     for (let i=0; i<array.length; i++) {
-        const value: OperatorResult<any> = chainedOperator.performChain(array[i], { lastOperatorIsTerminal: true });
+        const value: OperatorResult<any> = chainedOperator.performChain(array[i]);
         if (!value.skip) {
             result = value.value;
             break;
@@ -82,7 +78,7 @@ function handleTerminalPipe(chainedOperator: ChainedOperator<any>, array: Array<
 function handleIntermediatePipe(chainedOperator: ChainedOperator<any>, array: Array<any>): Array<any> {
     const result: Array<any> = []
     for (let i=0; i<array.length; i++) {
-        const value: OperatorResult<any> = chainedOperator.performChain(array[i], { lastOperatorIsTerminal: false });
+        const value: OperatorResult<any> = chainedOperator.performChain(array[i]);
         if (!value.skip) {
             if (value.needsFlattening) {
                 for (let j=0; j<value.value.length; j++) {
