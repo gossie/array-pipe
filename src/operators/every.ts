@@ -18,12 +18,14 @@ class EveryOperator<T> extends TerminalOperator<T, boolean> {
         if (!this.tester(from)) {
             return {
                 value: false,
-                skip: false
+                skip: false,
+                needsFlattening: false
             };
         }
         return {
             value: null,
-            skip: true
+            skip: true,
+            needsFlattening: false
         };
     }
 }

@@ -17,7 +17,8 @@ describe('some', () => {
         const operator: Operator<number, boolean> = some((n: number) => n%2 === 0);
         expect(operator.perform(4)).toEqual({
             value: true,
-            skip: false
+            skip: false,
+            needsFlattening: false
         });
     });
 
@@ -25,7 +26,8 @@ describe('some', () => {
         const operator: Operator<number, boolean> = some((n: number) => n%2 === 0);
         expect(operator.perform(5)).toEqual({
             value: null,
-            skip: true
+            skip: true,
+            needsFlattening: false
         });
     });
 

@@ -5,6 +5,7 @@ import distinct from './operators/distinct';
 import first from './operators/first';
 import some from './operators/some';
 import every from './operators/every';
+import flatMap from './operators/flat-map';
 
 describe('pipe', () => {
 
@@ -125,6 +126,42 @@ describe('pipe', () => {
     
             expect(result).toEqual([2, 4, 6, 0, 12, 14, 0]);
         });
+
+        describe('flatMap', () => {
+            it('should pipe with flatMap as last operator', () => {
+                const result: number = ['1', '3', '5', '7', '9']
+                    .pipe(
+                        map((s: string) => parseInt(s)),
+                        flatMap((n: number) => [n, n+1])
+                    );
+                
+                expect(result).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+            });
+
+            fit('should pipe with flatMap as intermediate operator', () => {
+                const result: number = ['1', '3', '5', '7', '9']
+                    .pipe(
+                        map((s: string) => parseInt(s)),
+                        flatMap((n: number) => [n, n+1]),
+                        map((n: number) => n + 1)
+                    );
+                
+                expect(result).toEqual([2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
+            });
+
+            it('should pipe with flatMap as intermediate operator with terminal operator in the end', () => {
+                const result: number = ['1', '3', '5', '7', '9']
+                    .pipe(
+                        map((s: string) => parseInt(s)),
+                        flatMap((n: number) => [n, n+1]),
+                        map((n: number) => n + 1),
+                        some((n: number) => n%3 ===0)
+                    );
+                
+                expect(result).toBeTruthy();
+            });
+        })
+
     });
 
 })

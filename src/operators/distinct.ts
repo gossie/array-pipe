@@ -8,13 +8,15 @@ class DistinctOperator extends IntermediateOperator<any, any> {
         if (this.pastValues.has(from)) {
             return {
                 value: from,
-                skip: true
+                skip: true,
+                needsFlattening: false
             };
         } else {
             this.pastValues.add(from);
             return {
                 value: from,
-                skip: false
+                skip: false,
+                needsFlattening: false
             };
         }
     }

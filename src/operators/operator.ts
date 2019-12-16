@@ -2,6 +2,7 @@ export interface OperatorResult<T> {
 
     value: T;
     skip: boolean;
+    needsFlattening: boolean;
 
 }
 

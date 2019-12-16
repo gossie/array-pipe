@@ -12,7 +12,8 @@ describe('filter', () => {
         const operator: Operator<number, number> = filter((item: number) => item%2 === 0);
         expect(operator.perform(4)).toEqual({
             value: 4,
-            skip: false
+            skip: false,
+            needsFlattening: false
         });
     });
 
@@ -20,7 +21,8 @@ describe('filter', () => {
         const operator: Operator<number, number> = filter((item: number) => item%2 === 0);
         expect(operator.perform(5)).toEqual({
             value: 5,
-            skip: true
+            skip: true,
+            needsFlattening: false
         });
     });
 

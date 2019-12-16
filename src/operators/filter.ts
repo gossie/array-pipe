@@ -13,7 +13,8 @@ class FilterOperator<T> extends IntermediateOperator<T, T> {
     public perform(from: T): OperatorResult<T> {
         return {
             value: from,
-            skip: !this.tester(from)
+            skip: !this.tester(from),
+            needsFlattening: false
         };
     }
 }
