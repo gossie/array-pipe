@@ -90,10 +90,6 @@ class EveryOperator<T> extends TerminalOperator<T, boolean> {
     }
 }
 
-export function every<T>(tester: Predicate<T>): TerminalOperator<T, boolean> {
-    return new EveryOperator<T>(tester);
-}
-
 class FilterOperator<T> extends IntermediateOperator<T, T> {
 
     constructor(private tester: Predicate<T>) {
@@ -107,10 +103,6 @@ class FilterOperator<T> extends IntermediateOperator<T, T> {
             needsFlattening: false
         };
     }
-}
-
-export function filter<T>(tester: Predicate<T>): IntermediateOperator<T, T> {
-    return new FilterOperator<T>(tester);
 }
 
 class FirstOperator<T> extends TerminalOperator<T, T> {
@@ -132,10 +124,6 @@ class FirstOperator<T> extends TerminalOperator<T, T> {
     }
 }
 
-export function first<T>(tester: Predicate<T>): TerminalOperator<T, T> {
-    return new FirstOperator<T>(tester);
-}
-
 class FlatMapOperator<F, T> extends IntermediateOperator<F, T> {
 
     constructor(private mapper: Mapper<F, T>) {
@@ -152,10 +140,6 @@ class FlatMapOperator<F, T> extends IntermediateOperator<F, T> {
 
 }
 
-export function flatMap<F, T extends Array<any>>(mapper: Mapper<F, T>): IntermediateOperator<F, T> {
-    return new FlatMapOperator<F, T>(mapper);
-}
-
 class MapOperator<F, T> extends IntermediateOperator<F, T> {
 
     constructor(private mapper: Mapper<F, T>) {
@@ -170,10 +154,6 @@ class MapOperator<F, T> extends IntermediateOperator<F, T> {
         };
     }
 
-}
-
-export function map<F, T>(mapper: Mapper<F, T>): IntermediateOperator<F, T> {
-    return new MapOperator<F, T>(mapper);
 }
 
 class SomeOperator<T> extends TerminalOperator<T, boolean> {
@@ -202,6 +182,26 @@ class SomeOperator<T> extends TerminalOperator<T, boolean> {
     }
 }
 
+export function filter<T>(tester: Predicate<T>): IntermediateOperator<T, T> {
+    return new FilterOperator<T>(tester);
+}
+
+export function map<F, T>(mapper: Mapper<F, T>): IntermediateOperator<F, T> {
+    return new MapOperator<F, T>(mapper);
+}
+
+export function flatMap<F, T extends Array<any>>(mapper: Mapper<F, T>): IntermediateOperator<F, T> {
+    return new FlatMapOperator<F, T>(mapper);
+}
+
+export function first<T>(tester: Predicate<T>): TerminalOperator<T, T> {
+    return new FirstOperator<T>(tester);
+}
+
 export function some<T>(tester: Predicate<T>): TerminalOperator<T, boolean> {
     return new SomeOperator<T>(tester);
+}
+
+export function every<T>(tester: Predicate<T>): TerminalOperator<T, boolean> {
+    return new EveryOperator<T>(tester);
 }
