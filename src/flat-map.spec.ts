@@ -1,5 +1,4 @@
-import { IntermediateOperator } from './operator';
-import flatMap from './flat-map';
+import { IntermediateOperator, flatMap } from './operators';
 
 describe('flatMap', () => {
 

@@ -1,5 +1,4 @@
-import first from './first';
-import { Operator, TerminalOperator } from './operator';
+import { Operator, TerminalOperator, first } from './operators';
 
 describe('first', () => {
 

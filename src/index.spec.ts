@@ -1,11 +1,5 @@
 import './index';
-import filter from './operators/filter';
-import map from './operators/map';
-import distinct from './operators/distinct';
-import first from './operators/first';
-import some from './operators/some';
-import every from './operators/every';
-import flatMap from './operators/flat-map';
+import { filter, map, flatMap, distinct, first, some, every } from './operators';
 
 describe('pipe', () => {
 

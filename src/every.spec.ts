@@ -1,5 +1,4 @@
-import { Operator, TerminalOperator } from "./operator";
-import every from './every';
+import { Operator, TerminalOperator, every } from "./operators";
 
 describe('every', () => {
 

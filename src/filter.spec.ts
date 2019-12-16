@@ -1,5 +1,4 @@
-import filter from './filter';
-import { Operator } from './operator';
+import { Operator, filter } from './operators';
 
 describe('filter', () => {
 

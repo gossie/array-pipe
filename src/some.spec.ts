@@ -1,5 +1,4 @@
-import { Operator, TerminalOperator } from "./operator";
-import some from './some';
+import { Operator, TerminalOperator, some } from './operators';
 
 describe('some', () => {
 

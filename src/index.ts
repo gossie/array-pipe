@@ -1,4 +1,4 @@
-import { Operator, TerminalOperator, OperatorResult } from './operators/operator';
+import { Operator, TerminalOperator, OperatorResult } from './operators';
 
 class ChainedOperator<F> {
     constructor(private delegate: Operator<F, any>,
