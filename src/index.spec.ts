@@ -157,7 +157,7 @@ describe('pipe', () => {
                 expect(result).toEqual([2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
             });
 
-            fit('should pipe with flatMap as intermediate operator with terminal operator in the end', () => {
+            it('should pipe with flatMap as intermediate operator with terminal operator in the end', () => {
                 const result: number = ['1', '3', '5', '7', '9']
                     .pipe(
                         map((s: string) => parseInt(s)),
