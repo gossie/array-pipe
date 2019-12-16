@@ -16,11 +16,7 @@ class ChainedOperator<F> {
                 const tmp: Array<any> = [];
                 for (let i=0; i<to.value.length; i++) {
                     const value: OperatorResult<any> = this.next.performChain(to.value[i], context);
-                    if (context.lastOperatorIsTerminal) {
-                        return value;
-                    } else {
-                        tmp.push(value.value);
-                    }
+                    tmp.push(value.value);
                 }
                 result = {
                     value: tmp,
@@ -83,7 +79,7 @@ function handleTerminalPipe(chainedOperator: ChainedOperator<any>, array: Array<
     return result;
 }
 
-function handleIntermediateType(chainedOperator: ChainedOperator<any>, array: Array<any>): Array<any> {
+function handleIntermediatePipe(chainedOperator: ChainedOperator<any>, array: Array<any>): Array<any> {
     const result: Array<any> = []
     for (let i=0; i<array.length; i++) {
         const value: OperatorResult<any> = chainedOperator.performChain(array[i], { lastOperatorIsTerminal: false });
@@ -110,7 +106,7 @@ if (!Array.prototype.pipe) {
 
             const root: ChainedOperator<any> = determineRootOfChain(operators);
             const lastOperator: Operator<any, any> = operators[operators.length - 1];
-            const handler = lastOperator.isTerminal() ? handleTerminalPipe : handleIntermediateType;
+            const handler = lastOperator.isTerminal() ? handleTerminalPipe : handleIntermediatePipe;
 
             result = handler(root, this, lastOperator);
         }

@@ -37,6 +37,14 @@ describe('pipe', () => {
             expect([0, 1, 2, 3].pipe()).toEqual([0, 1, 2, 3]);
         });
     
+        it('should filter', () => {
+            const result: Array<string> = [0, 1, 1, 2, 3, 4, 2, 5, 6, 7, 2, 8, 9]
+                .pipe(
+                    filter((n: number) => n%2 == 0)
+                );
+            expect(result).toEqual([0, 2, 4, 2, 6, 2, 8]);
+        });
+
         it('should pipe and return an array', () => {
             const result: Array<string> = [0, 1, 1, 2, 3, 4, 2, 5, 6, 7, 2, 8, 9]
                 .pipe(
@@ -149,7 +157,7 @@ describe('pipe', () => {
                 expect(result).toEqual([2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
             });
 
-            it('should pipe with flatMap as intermediate operator with terminal operator in the end', () => {
+            fit('should pipe with flatMap as intermediate operator with terminal operator in the end', () => {
                 const result: number = ['1', '3', '5', '7', '9']
                     .pipe(
                         map((s: string) => parseInt(s)),
