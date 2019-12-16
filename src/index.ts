@@ -1,18 +1,26 @@
 import { Operator, TerminalOperator, OperatorResult } from './operators/operator';
 
+interface ChainContext {
+    lastOperatorIsTerminal: boolean
+}
+
 class ChainedOperator<F> {
     constructor(private delegate: Operator<F, any>,
-                 private next: ChainedOperator<any>) {}
+                private next: ChainedOperator<any>) {}
 
-    public performChain(from: F): OperatorResult<any> {
+    public performChain(from: F, context: ChainContext): OperatorResult<any> {
         let result: OperatorResult<any>;
         const to: OperatorResult<any> = this.delegate.perform(from);
         if (!to.skip && this.next !== undefined) {
             if (to.needsFlattening) {
                 const tmp: Array<any> = [];
                 for (let i=0; i<to.value.length; i++) {
-                    const value: OperatorResult<any> = this.next.performChain(to.value[i]);
-                    tmp.push(value.value);
+                    const value: OperatorResult<any> = this.next.performChain(to.value[i], context);
+                    if (context.lastOperatorIsTerminal && !value.skip) {
+                        return value;
+                    } else {
+                        tmp.push(value.value);
+                    }
                 }
                 result = {
                     value: tmp,
@@ -20,7 +28,7 @@ class ChainedOperator<F> {
                     needsFlattening: true
                 }
             } else {
-                result = this.next.performChain(to.value);
+                result = this.next.performChain(to.value, context);
             }
         } else {
             result = to;
@@ -72,7 +80,7 @@ if (!Array.prototype.pipe) {
             const lastOperator: Operator<any, any> = operators[operators.length - 1];
             if (lastOperator.isTerminal()) {
                 for (let i=0; i<this.length; i++) {
-                    const value: OperatorResult<any> = root.performChain(this[i]);
+                    const value: OperatorResult<any> = root.performChain(this[i], { lastOperatorIsTerminal: true });
                     if (!value.skip) {
                         result = value.value;
                         break;
@@ -84,7 +92,7 @@ if (!Array.prototype.pipe) {
             } else {
                 result = []
                 for (let i=0; i<this.length; i++) {
-                    const value: OperatorResult<any> = root.performChain(this[i]);
+                    const value: OperatorResult<any> = root.performChain(this[i], { lastOperatorIsTerminal: false });
                     if (!value.skip) {
                         if (value.needsFlattening) {
                             for (let j=0; j<value.value.length; j++) {
