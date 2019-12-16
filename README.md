@@ -50,7 +50,7 @@ Removes duplicated elements. It's important to not, that this is a statefull ope
 
 A terminal operator has to be the last one in a pipe. Also, there can only be on terminal operator in a pipe.
 
-* __first__
+* __find__
 Gets a function that takes an element and returns a boolean. If an element is evaluated to true that element is immediately returned by the pipe.
 * __some__
 Some works similar to the `first`-operator except that not the element is returned, but the value `true` as soon as the passed function evaluates to true.
