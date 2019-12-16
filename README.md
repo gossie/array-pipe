@@ -35,6 +35,7 @@ No more elements are mapped or checked, because it is not necessary.
 
 * filter
 * map
+* flatMap
 * distinct
 * first
 * some
