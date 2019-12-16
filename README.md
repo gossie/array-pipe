@@ -67,8 +67,7 @@ Another case for using the pipe would be, if you need to write your own operator
 After you installed the npm dependency you need to import @gossie/array-pipe so that the polyfill is activated. In addition the operators you want to use need to be imported. For the example above, it would look like this:
 ```typescript
 import '@gossie/array-pipe';
-import map from '@gossie/array-pipe/operators/map';
-import some from '@gossie/array-pipe/operators/some';
+import { map, some } from '@gossie/array-pipe/operators';
 ```
 
 ## Try it out
