@@ -16,7 +16,7 @@ class ChainedOperator<F> {
                 const tmp: Array<any> = [];
                 for (let i=0; i<to.value.length; i++) {
                     const value: OperatorResult<any> = this.next.performChain(to.value[i], context);
-                    if (context.lastOperatorIsTerminal && !value.skip) {
+                    if (context.lastOperatorIsTerminal) {
                         return value;
                     } else {
                         tmp.push(value.value);
