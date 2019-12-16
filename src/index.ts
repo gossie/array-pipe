@@ -1,27 +1,22 @@
 import { Operator, TerminalOperator, OperatorResult } from './operators/operator';
 
 class ChainedOperator<F, T> {
-     constructor(private delegate: Operator<F, T>,
+    constructor(private delegate: Operator<F, T>,
                  private next: ChainedOperator<T, any>) {}
 
-     public performChain(from: F): OperatorResult<T> {
+    public performChain(from: F): OperatorResult<T> {
+        let result: OperatorResult<T>;
         const to: OperatorResult<T> = this.delegate.perform(from);
         if (!to.skip && this.next !== undefined) {
-            return this.next.performChain(to.value);
+            result = this.next.performChain(to.value);
         } else {
-            return to;
+            result = to;
         }
+        return result;
     }
 }
 
-declare global {
-    interface Array<T> {
-        pipe(...operators: Array<Operator<any, any>>): Array<any> | any
-    }
-}
-
-function determineRootOfChain(operators: Array<Operator<any, any>>): ChainedOperator<any, any> {
-    let chainedOperator: ChainedOperator<any, any> = undefined;
+function checkOperators(operators: Array<Operator<any, any>>): void {
     let terminalOperators: number = 0;
     let foundIntermediate: boolean = false;
     for (let i=operators.length - 1; i>=0; i--) {
@@ -35,9 +30,21 @@ function determineRootOfChain(operators: Array<Operator<any, any>>): ChainedOper
                 throw Error('terminal operator has to be the last one');
             }
         }
+    }
+}
+
+function determineRootOfChain(operators: Array<Operator<any, any>>): ChainedOperator<any, any> {
+    let chainedOperator: ChainedOperator<any, any> = undefined;
+    for (let i=operators.length - 1; i>=0; i--) {
         chainedOperator = new ChainedOperator(operators[i], chainedOperator);
     }
     return chainedOperator;
+}
+
+declare global {
+    interface Array<T> {
+        pipe(...operators: Array<Operator<any, any>>): Array<any> | any
+    }
 }
 
 if (!Array.prototype.pipe) {
@@ -46,6 +53,8 @@ if (!Array.prototype.pipe) {
         if (!operators || operators.length === 0) {
             result = this;
         } else {
+            checkOperators(operators);
+
             const root: ChainedOperator<any, any> = determineRootOfChain(operators);
             const lastOperator: Operator<any, any> = operators[operators.length - 1];
             if (lastOperator.isTerminal()) {

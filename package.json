@@ -7,7 +7,8 @@
   "scripts": {
     "prepare": "npm run build",
     "build": "tsc",
-    "test": "jest",
+    "test": "jest --watch",
+    "test:ci": "jest",
     "test:mutation": "stryker run",
     "copyfiles": "cp -rf package.json dist && cp -rf README.md dist && cp -rf LICENSE dist",
     "distNPM": "cd dist && npm publish --access public --registry=https://registry.npmjs.org/",

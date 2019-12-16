@@ -6,6 +6,6 @@ node_js:
   - "node"
 script:
   - rm -r dist
-  - npm run test
+  - npm run test:ci
   - npm run test:mutation
   - npm run build
