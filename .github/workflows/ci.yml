@@ -1,0 +1,20 @@
+name: ci
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Install & Build
+        run: npm ci
+      - name: Unit tests
+        run: npm run test:ci
+      - name: Mutation tests
+        run: npm run test:mutation
+        env:
+          STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}

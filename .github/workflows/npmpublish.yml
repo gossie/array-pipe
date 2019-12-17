@@ -1,4 +1,4 @@
-name: array-pipe
+name: npmpublish
 
 on:
   release:
