@@ -4,7 +4,7 @@
 
 # array-pipe
 
-The project defines a pipe method as a polyfill for arrays, that enables developers to perform multiple operations with only iterating over as few elements as possible.
+The project defines a pipe method as a polyfill for arrays, that enables developers to perform multiple operations with only iterating over as few elements as possible.<br />
 Imagine you have an array of string encoded numbers and want to check if there is one that is dividable by two.
 ```typescript
 const result: boolean = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
@@ -20,7 +20,7 @@ const result: Array<string> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'
         some((n: number) => n%2 === 0)
     );
 ```
-The pipe polyfill with its operators will get the same result, but it won't map all elements before the check. Each element will be handled by all operators (or if the element doesn't match a filter operator) before the next element is processed. As soon as a result is found, it is returned and the handling is stopped.
+The pipe polyfill with its operators will get the same result, but it won't map all elements before the check. Each element will be handled by all operators (or if the element doesn't match a filter operator) before the next element is processed. As soon as a result is found, it is returned and the handling is stopped.<br />
 The following table illustrates how the elements are streamed throught the operators.
 
 |      | |map operator|some operator|                                                               |
@@ -38,29 +38,29 @@ No more elements are mapped or checked, because it is not necessary.
 
 There can be as many intermediate operators as you want in a pipe. In an intermediate operator is the last operator of a pipe, the result of the pipe call will be an array.
 
-* __filter__
+* __filter__<br />
 Gets a function that takes an element and returns a boolean. The elements where the function returns true survive.
-* __map__
+* __map__<br />
 Gets a function and applies each element to that function.
-* __flatMap__
+* __flatMap__<br />
 The operator gets a function that maps to an array of elements and flattens them.
-* __distinct__
+* __distinct__<br />
 Removes duplicated elements. It's important to not, that this is a statefull operator.
 
 ### Terminal Operators
 
 A terminal operator has to be the last one in a pipe. Also, there can only be on terminal operator in a pipe.
 
-* __find__
+* __find__<br />
 Gets a function that takes an element and returns a boolean. If an element is evaluated to true that element is immediately returned by the pipe.
-* __some__
+* __some__<br />
 Some works similar to the `first`-operator except that not the element is returned, but the value `true` as soon as the passed function evaluates to true.
-* __every__
+* __every__<br />
 `every` also applies the passed function to each element. As soon as one element does not evaluate to `true` the pipe immediately returns `false`. 
 
 ## When is it usefull?
 
-If your code always needs to perform all operations on all elements in your array, you probably should stick to the original JavaScript methods. The pipe is only usefull if you use a terminal operator as last operator.
+If your code always needs to perform all operations on all elements in your array, you probably should stick to the original JavaScript methods. The pipe is only usefull if you use a terminal operator as last operator.<br />
 Another case for using the pipe would be, if you need to write your own operator.
 
 ## Integration
