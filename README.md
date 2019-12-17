@@ -57,6 +57,8 @@ Gets a function that takes an element and returns a boolean. If an element is ev
 Some works similar to the `first`-operator except that not the element is returned, but the value `true` as soon as the passed function evaluates to true.
 * __every__<br />
 `every` also applies the passed function to each element. As soon as one element does not evaluate to `true` the pipe immediately returns `false`. 
+* __none__<br />
+`none` also applies the passed function to each element. As soon as one element evaluates to `true` the pipe immediately returns `false`. 
 
 ## When is it usefull?
 

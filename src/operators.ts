@@ -90,6 +90,32 @@ class EveryOperator<T> extends TerminalOperator<T, boolean> {
     }
 }
 
+class NoneOperator<T> extends TerminalOperator<T, boolean> {
+
+    constructor(private tester: Predicate<T>) {
+        super();
+    }
+
+    public getFallbackValue(): boolean {
+        return true;
+    }
+
+    public perform(from: T): OperatorResult<boolean> {
+        if (this.tester(from)) {
+            return {
+                value: false,
+                skip: false,
+                needsFlattening: false
+            };
+        }
+        return {
+            value: null,
+            skip: true,
+            needsFlattening: false
+        };
+    }
+}
+
 class FilterOperator<T> extends IntermediateOperator<T, T> {
 
     constructor(private tester: Predicate<T>) {
@@ -204,4 +230,8 @@ export function some<T>(tester: Predicate<T>): TerminalOperator<T, boolean> {
 
 export function every<T>(tester: Predicate<T>): TerminalOperator<T, boolean> {
     return new EveryOperator<T>(tester);
+}
+
+export function none<T>(tester: Predicate<T>): TerminalOperator<T, boolean> {
+    return new NoneOperator<T>(tester);
 }

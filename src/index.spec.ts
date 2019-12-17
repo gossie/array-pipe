@@ -1,5 +1,5 @@
 import './index';
-import { filter, map, flatMap, distinct, find, some, every } from './operators';
+import { filter, map, flatMap, distinct, find, some, every, none } from './operators';
 
 describe('pipe', () => {
 
@@ -106,6 +106,26 @@ describe('pipe', () => {
                 .pipe(
                     map((n: string) => parseInt(n)),
                     every((n: number) => n%2 === 0)
+                );
+            
+            expect(result).toBe(false);
+        });
+    
+        it('should pipe and return true because all elements do not match criteria', () => {
+            const result: number = ['3', '5', '7', '9', '11', '13', '15', '17', '19', '21']
+                .pipe(
+                    map((n: string) => parseInt(n)),
+                    none((n: number) => n%2 === 0)
+                );
+            
+            expect(result).toBeTruthy();
+        });
+    
+        it('should pipe and return false because not all elements match criteria', () => {
+            const result: number = ['3', '5', '7', '9', '12', '13', '15', '17', '19', '21']
+                .pipe(
+                    map((n: string) => parseInt(n)),
+                    none((n: number) => n%2 === 0)
                 );
             
             expect(result).toBe(false);
