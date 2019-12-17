@@ -1,6 +1,4 @@
 [![Build Status](https://travis-ci.org/gossie/array-pipe.svg?branch=master)](https://travis-ci.org/gossie/array-pipe)
-[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fstryker-mutator%2Fstryker%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/stryker-mutator/stryker/master)
-[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fgossie%2Farray-pipe%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/gossie/array-pipe/master)
 [![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fgossie%2Farray-pipe%2Fmaster)](https://stryker-mutator.github.io)
 
 
