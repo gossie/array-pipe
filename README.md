@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/gossie/array-pipe.svg?branch=master)](https://travis-ci.org/gossie/array-pipe)
+[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fgossie%2Farray-pipe%2Fmaster)](https://stryker-mutator.github.io)
 
 
 # array-pipe
@@ -50,7 +51,7 @@ Removes duplicated elements. It's important to not, that this is a statefull ope
 
 A terminal operator has to be the last one in a pipe. Also, there can only be on terminal operator in a pipe.
 
-* __first__
+* __find__
 Gets a function that takes an element and returns a boolean. If an element is evaluated to true that element is immediately returned by the pipe.
 * __some__
 Some works similar to the `first`-operator except that not the element is returned, but the value `true` as soon as the passed function evaluates to true.

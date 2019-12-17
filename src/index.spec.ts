@@ -1,5 +1,5 @@
 import './index';
-import { filter, map, flatMap, distinct, first, some, every } from './operators';
+import { filter, map, flatMap, distinct, find, some, every } from './operators';
 
 describe('pipe', () => {
 
@@ -20,7 +20,7 @@ describe('pipe', () => {
                     .pipe(
                         map((n: string) => parseInt(n)),
                         every((n: number) => n%2 === 0),
-                        first((n: number) => n%2 === 0)
+                        find((n: number) => n%2 === 0)
                     );
             }).toThrowError('there can only be one terminal operator');
         });
@@ -55,7 +55,7 @@ describe('pipe', () => {
             const result: number = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
                 .pipe(
                     map((n: string) => parseInt(n)),
-                    first((n: number) => n%2 === 0)
+                    find((n: number) => n%2 === 0)
                 );
             
             expect(result).toEqual(2);
@@ -65,7 +65,7 @@ describe('pipe', () => {
             const result: number = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
                 .pipe(
                     map((n: string) => parseInt(n)),
-                    first((n: number) => n%10 === 0)
+                    find((n: number) => n%10 === 0)
                 );
             
             expect(result).toBeNull();

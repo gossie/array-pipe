@@ -105,7 +105,7 @@ class FilterOperator<T> extends IntermediateOperator<T, T> {
     }
 }
 
-class FirstOperator<T> extends TerminalOperator<T, T> {
+class FindOperator<T> extends TerminalOperator<T, T> {
 
     constructor(private tester: Predicate<T>) {
         super();
@@ -194,8 +194,8 @@ export function flatMap<F, T extends Array<any>>(mapper: Mapper<F, T>): Intermed
     return new FlatMapOperator<F, T>(mapper);
 }
 
-export function first<T>(tester: Predicate<T>): TerminalOperator<T, T> {
-    return new FirstOperator<T>(tester);
+export function find<T>(tester: Predicate<T>): TerminalOperator<T, T> {
+    return new FindOperator<T>(tester);
 }
 
 export function some<T>(tester: Predicate<T>): TerminalOperator<T, boolean> {
