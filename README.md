@@ -14,7 +14,7 @@ const result: boolean = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
 The code does what it is supposed to. But it will iterate over the whole array mapping all elements before checking the dividability.
 Using the pipe polyfill would look like this:
 ```typescript
-const result: Array<string> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+const result: boolean = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
     .pipe(
         map((s: string) => parseInt(s)),
         some((n: number) => n%2 === 0)
