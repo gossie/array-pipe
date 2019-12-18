@@ -22,8 +22,7 @@
     "javascript",
     "array",
     "pipe",
-    "polyfill",
-    "performance"
+    "polyfill"
   ],
   "author": "André Schreck",
   "license": "MIT",
