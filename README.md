@@ -64,7 +64,7 @@ Some works similar to the `first`-operator except that not the element is return
 
 You might have the need to write your own operator.<br />
 The easiest way is, to extend either `IntermediateOperator` or `TerminalOperator`. In this example an operator is implemented that returns the sum of the first n elements, where the n is passed a the `limit` Parameter.<br />
-All you need to do then, is implement the `peform` method and, in case of a `TerminalOperator`, the `getFallbackValue` method. The gets passed an element from the array and returns an `OperatorResult`. The `OperatorResult` contains the resulting value of the operation and some other information. For a `TerminalOperator` it needs to contain a `done` attribute that tells the pipe, if it can stop the execution or has to go on. An `IntermediateOperator` does not need the `done` attribute but can contain an option `skip` attribute. That tells the pipe if the value will be part of the result or not.
+All you need to do then, is implement the `perform` method and, in case of a `TerminalOperator`, the `getFallbackValue` method. The gets passed an element from the array and returns an `OperatorResult`. The `OperatorResult` contains the resulting value of the operation and some other information. For a `TerminalOperator` it needs to contain a `done` attribute that tells the pipe, if it can stop the execution or has to go on. An `IntermediateOperator` does not need the `done` attribute but can contain an option `skip` attribute. That tells the pipe if the value will be part of the result or not.
 ```typescript
 import { TerminalOperator } from '@gossie/array-pipe/operators';
 
