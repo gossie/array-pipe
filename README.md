@@ -52,7 +52,7 @@ Gets a function and applies each element to that function.
 * __flatMap__<br />
 The operator gets a function that maps to an array of elements and flattens them.
 * __distinct__<br />
-Removes duplicated elements. It's important to not, that this is a statefull operator.
+Removes duplicated elements. It's important to note, that this is a statefull operator.
 
 ### Terminal Operators
 
