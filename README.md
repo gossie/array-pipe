@@ -107,7 +107,7 @@ const result: number = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
 ```
 The result should be 15.
 
-## When is it usefull?
+## When is it usefull to use array-pipe?
 
 If your code always needs to perform all operations on all elements in your array, you probably should stick to the original JavaScript methods. The pipe is only usefull if you use a terminal operator as last operator.<br />
 Another case for using the pipe would be, if you need to write your own operator.
