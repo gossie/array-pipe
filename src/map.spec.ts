@@ -10,9 +10,7 @@ describe('map', () => {
     it('should map', () => {
         const operator: Operator<number, number> = map((item: number) => item + 1);
         expect(operator.perform(4)).toEqual({
-            value: 5,
-            skip: false,
-            needsFlattening: false
+            value: 5
         });
     });
 

@@ -60,6 +60,52 @@ Some works similar to the `first`-operator except that not the element is return
 * __none__<br />
 `none` also applies the passed function to each element. As soon as one element evaluates to `true` the pipe immediately returns `false`. 
 
+## Write your own operator
+
+You might have the need to write your own operator. <br />
+The easiest way is, to extend either `IntermediateOperator` or `TerminalOperator`.
+```typescript
+import { TerminalOperator } from '@gossie/array-pipe/operators';
+
+class LimitedSumOperator extends TerminalOperator<number, number> {
+
+    private sum = 0;
+    private iterations = 0;
+
+    constructor(private limit: number) {
+        super();
+    }
+
+    public perform(from: number): OperatorResult<number> {
+        ++this.iterations;
+        this.sum += from;
+        return {
+            value: this.sum,
+            done: this.iterations == this.limit
+        };
+    }
+
+    public getFallbackValue(): number {
+        return 0;
+    }
+}
+
+export function limitedSum(n: number): Operator<number, number> {
+    return new LimitedSumOperator(n);
+}
+```
+
+Then you can use your custom operator like the others.
+
+```typescript
+const result: number = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+    .pipe(
+        map((s: string) => parseInt(s)),
+        limitedSum(5)
+    );
+```
+The result would be 15.
+
 ## When is it usefull?
 
 If your code always needs to perform all operations on all elements in your array, you probably should stick to the original JavaScript methods. The pipe is only usefull if you use a terminal operator as last operator.<br />

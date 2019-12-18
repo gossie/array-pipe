@@ -1,8 +1,9 @@
 export interface OperatorResult<T> {
 
     value: T;
-    skip: boolean;
-    needsFlattening: boolean;
+    skip?: boolean;
+    done?: boolean;
+    needsFlattening?: boolean;
 
 }
 
@@ -47,14 +48,12 @@ class DistinctOperator extends IntermediateOperator<any, any> {
             return {
                 value: from,
                 skip: true,
-                needsFlattening: false
             };
         } else {
             this.pastValues.add(from);
             return {
                 value: from,
                 skip: false,
-                needsFlattening: false
             };
         }
     }
@@ -78,14 +77,12 @@ class EveryOperator<T> extends TerminalOperator<T, boolean> {
         if (!this.tester(from)) {
             return {
                 value: false,
-                skip: false,
-                needsFlattening: false
+                done: true,
             };
         }
         return {
-            value: null,
-            skip: true,
-            needsFlattening: false
+            value: true,
+            done: false
         };
     }
 }
@@ -104,14 +101,12 @@ class NoneOperator<T> extends TerminalOperator<T, boolean> {
         if (this.tester(from)) {
             return {
                 value: false,
-                skip: false,
-                needsFlattening: false
+                done: true
             };
         }
         return {
-            value: null,
-            skip: true,
-            needsFlattening: false
+            value: true,
+            done: false
         };
     }
 }
@@ -125,8 +120,7 @@ class FilterOperator<T> extends IntermediateOperator<T, T> {
     public perform(from: T): OperatorResult<T> {
         return {
             value: from,
-            skip: !this.tester(from),
-            needsFlattening: false
+            skip: !this.tester(from)
         };
     }
 }
@@ -144,8 +138,7 @@ class FindOperator<T> extends TerminalOperator<T, T> {
     public perform(from: T): OperatorResult<T> {
         return {
             value: from,
-            skip: !this.tester(from),
-            needsFlattening: false
+            done: this.tester(from)
         };
     }
 }
@@ -159,7 +152,6 @@ class FlatMapOperator<F, T> extends IntermediateOperator<F, T> {
     public perform(from: F): OperatorResult<T> {
         return {
             value: this.mapper(from),
-            skip: false,
             needsFlattening: true
         };
     }
@@ -174,9 +166,7 @@ class MapOperator<F, T> extends IntermediateOperator<F, T> {
 
     public perform(from: F): OperatorResult<T> {
         return {
-            value: this.mapper(from),
-            skip: false,
-            needsFlattening: false
+            value: this.mapper(from)
         };
     }
 
@@ -196,14 +186,12 @@ class SomeOperator<T> extends TerminalOperator<T, boolean> {
         if (this.tester(from)) {
             return {
                 value: true,
-                skip: false,
-                needsFlattening: false
+                done: true
             };
         }
         return {
-            value: null,
-            skip: true,
-            needsFlattening: false
+            value: false,
+            done: false
         };
     }
 }

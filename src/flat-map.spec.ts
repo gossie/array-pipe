@@ -11,7 +11,6 @@ describe('flatMap', () => {
         const operator: IntermediateOperator<number, Array<number>> = flatMap((item: number) => [item, item + 1]);
         expect(operator.perform(5)).toEqual({
             value: [5, 6],
-            skip: false,
             needsFlattening: true
         });
     });

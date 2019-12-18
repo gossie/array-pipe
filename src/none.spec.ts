@@ -16,17 +16,15 @@ describe('none', () => {
         const operator: TerminalOperator<any, any> = none((n: number) => n%2 === 0);
         expect(operator.perform(4)).toEqual({
             value: false,
-            skip: false,
-            needsFlattening: false
+            done: true
         });
     });
 
     it('should match', () => {
         const operator: TerminalOperator<any, any> = none((n: number) => n%2 === 0);
         expect(operator.perform(5)).toEqual({
-            value: null,
-            skip: true,
-            needsFlattening: false
+            value: true,
+            done: false
         });
     });
 });

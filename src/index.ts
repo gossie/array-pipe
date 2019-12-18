@@ -7,12 +7,18 @@ class ChainedOperator<F> {
     public performChain(from: F): OperatorResult<any> {
         let result: OperatorResult<any>;
         const to: OperatorResult<any> = this.delegate.perform(from);
-        if (!to.skip && this.next) {
+        if (to.done || to.skip || !this.next) {
+            result = to;
+        } else {
             if (to.needsFlattening) {
                 const tmp: Array<any> = [];
                 for (let i=0; i<to.value.length; i++) {
                     const value: OperatorResult<any> = this.next.performChain(to.value[i]);
-                    tmp.push(value.value);
+                    if (value.done) {
+                        return value;
+                    } else if (!value.skip) {
+                        tmp.push(value.value);
+                    }
                 }
                 result = {
                     value: tmp,
@@ -22,8 +28,6 @@ class ChainedOperator<F> {
             } else {
                 result = this.next.performChain(to.value);
             }
-        } else {
-            result = to;
         }
         return result;
     }
@@ -64,7 +68,7 @@ function handleTerminalPipe(chainedOperator: ChainedOperator<any>, array: Array<
     let result: any;
     for (let i=0; i<array.length; i++) {
         const value: OperatorResult<any> = chainedOperator.performChain(array[i]);
-        if (!value.skip) {
+        if (value.done) {
             result = value.value;
             break;
         }

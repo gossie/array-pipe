@@ -171,8 +171,8 @@ describe('pipe', () => {
                 expect(result).toEqual([2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
             });
 
-            it('should pipe with flatMap as intermediate operator with terminal operator in the end', () => {
-                const result: number = ['1', '3', '5', '7', '9']
+            it('should pipe with flatMap as intermediate operator and terminal operator in the end', () => {
+                const result: boolean = ['1', '3', '5', '7', '9']
                     .pipe(
                         map((s: string) => parseInt(s)),
                         flatMap((n: number) => [n, n+1]),
@@ -182,8 +182,19 @@ describe('pipe', () => {
                 
                 expect(result).toBeTruthy();
             });
-            
-        })
+
+            it('should pipe with flatMap as intermediate operator and filter in the end', () => {
+                const result: boolean = ['1', '3', '5', '7', '9']
+                    .pipe(
+                        map((s: string) => parseInt(s)),
+                        flatMap((n: number) => [n, n+1]),
+                        filter((n: number) => n%2 === 0)
+                    );
+                
+                expect(result).toEqual([2, 4, 6, 8, 10]);
+            });
+
+        });
 
     });
 

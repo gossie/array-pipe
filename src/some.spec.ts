@@ -16,17 +16,15 @@ describe('some', () => {
         const operator: Operator<number, boolean> = some((n: number) => n%2 === 0);
         expect(operator.perform(4)).toEqual({
             value: true,
-            skip: false,
-            needsFlattening: false
+            done: true
         });
     });
 
     it('should not match criteria', () => {
         const operator: Operator<number, boolean> = some((n: number) => n%2 === 0);
         expect(operator.perform(5)).toEqual({
-            value: null,
-            skip: true,
-            needsFlattening: false
+            value: false,
+            done: false
         });
     });
 

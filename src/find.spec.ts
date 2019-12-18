@@ -16,8 +16,7 @@ describe('find', () => {
         const operator: Operator<number, number> = find((n: number) => n%2 === 0);
         expect(operator.perform(4)).toEqual({
             value: 4,
-            skip: false,
-            needsFlattening: false
+            done: true
         });
     });
 
@@ -25,8 +24,7 @@ describe('find', () => {
         const operator: Operator<number, number> = find((n: number) => n%2 === 0);
         expect(operator.perform(5)).toEqual({
             value: 5,
-            skip: true,
-            needsFlattening: false
+            done: false
         });
     });
 })
