@@ -4,6 +4,12 @@
 
 # array-pipe
 
+* [Current operators](#currentoperator)
+* [Write your own operator](#customoperator)
+* [When is it usefull to use array-pipe?](#usecases)
+* [Integration](#integration)
+* [Try it out](#testout)
+
 The project defines a pipe method as a polyfill for arrays, that enables developers to perform multiple operations with only iterating over as few elements as possible.<br />
 Imagine you have an array of string encoded numbers and want to check if there is one that is dividable by two.
 ```typescript
@@ -32,6 +38,7 @@ The following table illustrates how the elements are streamed throught the opera
 
 No more elements are mapped or checked, because it is not necessary.
 
+<a name="currentoperator"></a>
 ## Current Operators
 
 ### Intermetiate Operators
@@ -60,6 +67,7 @@ Some works similar to the `first`-operator except that not the element is return
 * __none__<br />
 `none` also applies the passed function to each element. As soon as one element evaluates to `true` the pipe immediately returns `false`. 
 
+<a name="customoperator"></a>
 ## Write your own operator
 
 You might have the need to write your own operator.<br />
@@ -107,11 +115,13 @@ const result: number = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
 ```
 The result should be 15.
 
+<a name="usecases"></a>
 ## When is it usefull to use array-pipe?
 
 If your code always needs to perform all operations on all elements in your array, you probably should stick to the original JavaScript methods. The pipe is only usefull if you use a terminal operator as last operator.<br />
 Another case for using the pipe would be, if you need to write your own operator.
 
+<a name="integration"></a>
 ## Integration
 
 After you installed the npm dependency you need to import @gossie/array-pipe so that the polyfill is activated. In addition the operators you want to use need to be imported. For the example above, it would look like this:
@@ -120,6 +130,7 @@ import '@gossie/array-pipe';
 import { map, some } from '@gossie/array-pipe/operators';
 ```
 
+<a name="testout"></a>
 ## Try it out
 
 Go to the [array-pipe Test application](https://gossie.github.io/array-pipe-test-app) to compare different implementations.
