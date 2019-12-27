@@ -9,7 +9,7 @@ describe('someReduce', () => {
 
     it('should have fallback value', () => {
         const operator: TerminalOperator<number, boolean> = reduceToSome((n1: number, n2: number) => (n1+n2)%2 === 0);
-        expect(operator.getFallbackValue()).toBeFalsy();
+        expect(operator.getFallbackValue()).toBe(false)
     });
 
     it('should match criteria', () => {
