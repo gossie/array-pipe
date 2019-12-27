@@ -1,4 +1,4 @@
-import { TerminalOperator, none } from './operators';
+import { TerminalOperator, none } from '../src/operators';
 
 describe('none', () => {
 

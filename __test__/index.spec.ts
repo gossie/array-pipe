@@ -1,5 +1,5 @@
-import './index';
-import { filter, map, flatMap, distinct, find, some, every, none } from './operators';
+import '../src/index';
+import { filter, map, flatMap, distinct, find, some, every, none } from '../src/operators';
 
 describe('pipe', () => {
 

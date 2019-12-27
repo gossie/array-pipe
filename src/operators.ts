@@ -35,6 +35,10 @@ interface Predicate<T> {
     (item: T): boolean;
 }
 
+interface BiPredicate<T> {
+    (item1: T, item2: T): boolean;
+}
+
 interface Mapper<F, T> {
     (from: F): T;
 }
@@ -58,10 +62,6 @@ class DistinctOperator extends IntermediateOperator<any, any> {
         }
     }
 }
-
-export function distinct(): IntermediateOperator<any, any> {
-    return new DistinctOperator();
-};
 
 class EveryOperator<T> extends TerminalOperator<T, boolean> {
 
@@ -196,6 +196,38 @@ class SomeOperator<T> extends TerminalOperator<T, boolean> {
     }
 }
 
+class EveryReduceOperator<T> extends TerminalOperator<T, boolean> {
+
+    private last: T;
+
+    constructor(private reducer: BiPredicate<T>) {
+        super();
+    }
+
+    public getFallbackValue(): boolean {
+        return true;
+    }
+
+    public perform(item: T): OperatorResult<boolean> {
+        let result: OperatorResult<boolean>;
+        if (this.last) {
+            const reduction = this.reducer(this.last, item);
+            result = {
+                value: reduction,
+                done: !reduction
+            };
+        } else {
+            result = {
+                value: true,
+                done: false
+            };
+        }
+        this.last = item;
+        return result;
+    }
+
+}
+
 export function filter<T>(tester: Predicate<T>): IntermediateOperator<T, T> {
     return new FilterOperator<T>(tester);
 }
@@ -207,6 +239,10 @@ export function map<F, T>(mapper: Mapper<F, T>): IntermediateOperator<F, T> {
 export function flatMap<F, T extends Array<any>>(mapper: Mapper<F, T>): IntermediateOperator<F, T> {
     return new FlatMapOperator<F, T>(mapper);
 }
+
+export function distinct(): IntermediateOperator<any, any> {
+    return new DistinctOperator();
+};
 
 export function find<T>(tester: Predicate<T>): TerminalOperator<T, T> {
     return new FindOperator<T>(tester);
@@ -222,4 +258,8 @@ export function every<T>(tester: Predicate<T>): TerminalOperator<T, boolean> {
 
 export function none<T>(tester: Predicate<T>): TerminalOperator<T, boolean> {
     return new NoneOperator<T>(tester);
+}
+
+export function everyReduce<T>(reducer: BiPredicate<T>): TerminalOperator<T, boolean> {
+    return new EveryReduceOperator<T>(reducer);
 }
