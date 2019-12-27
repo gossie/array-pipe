@@ -324,14 +324,14 @@ export function none<T>(tester: Predicate<T>): TerminalOperator<T, boolean> {
     return new NoneOperator<T>(tester);
 }
 
-export function everyReduce<T>(reducer: BiPredicate<T>): TerminalOperator<T, boolean> {
+export function reduceToEvery<T>(reducer: BiPredicate<T>): TerminalOperator<T, boolean> {
     return new EveryReduceOperator<T>(reducer);
 }
 
-export function someReduce<T>(reducer: BiPredicate<T>): TerminalOperator<T, boolean> {
+export function reduceToSome<T>(reducer: BiPredicate<T>): TerminalOperator<T, boolean> {
     return new SomeReduceOperator<T>(reducer);
 }
 
-export function noneReduce<T>(reducer: BiPredicate<T>): TerminalOperator<T, boolean> {
+export function reduceToNone<T>(reducer: BiPredicate<T>): TerminalOperator<T, boolean> {
     return new NoneReduceOperator<T>(reducer);
 }
