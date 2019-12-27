@@ -1,5 +1,5 @@
 import '../src/index';
-import { filter, map, flatMap, distinct, find, some, every, none } from '../src/operators';
+import { filter, map, flatMap, distinct, find, some, every, none, reduceToEvery, reduceToSome, reduceToNone } from '../src/operators';
 
 describe('pipe', () => {
 
@@ -32,7 +32,7 @@ describe('pipe', () => {
         });
     
         it('should filter', () => {
-            const result: Array<string> = [0, 1, 1, 2, 3, 4, 2, 5, 6, 7, 2, 8, 9]
+            const result: Array<number> = [0, 1, 1, 2, 3, 4, 2, 5, 6, 7, 2, 8, 9]
                 .pipe(
                     filter((n: number) => n%2 == 0)
                 );
@@ -72,7 +72,7 @@ describe('pipe', () => {
         });
     
         it('should pipe and return true because some elements match criteria', () => {
-            const result: number = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+            const result: boolean = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
                 .pipe(
                     map((n: string) => parseInt(n)),
                     some((n: number) => n > 5 && n < 10)
@@ -82,7 +82,7 @@ describe('pipe', () => {
         });
     
         it('should pipe and return false because no element matches criteria', () => {
-            const result: number = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+            const result: boolean = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
                 .pipe(
                     map((n: string) => parseInt(n)),
                     some((n: number) => n >= 10)
@@ -92,7 +92,7 @@ describe('pipe', () => {
         });
     
         it('should pipe and return true because all elements match criteria', () => {
-            const result: number = ['2', '4', '6', '8', '10', '12', '14', '16', '18', '20']
+            const result: boolean = ['2', '4', '6', '8', '10', '12', '14', '16', '18', '20']
                 .pipe(
                     map((n: string) => parseInt(n)),
                     every((n: number) => n%2 === 0)
@@ -102,7 +102,7 @@ describe('pipe', () => {
         });
     
         it('should pipe and return false because not all elements match criteria', () => {
-            const result: number = ['2', '4', '6', '8', '11', '12', '14', '16', '18', '20']
+            const result: boolean = ['2', '4', '6', '8', '11', '12', '14', '16', '18', '20']
                 .pipe(
                     map((n: string) => parseInt(n)),
                     every((n: number) => n%2 === 0)
@@ -112,7 +112,7 @@ describe('pipe', () => {
         });
     
         it('should pipe and return true because all elements do not match criteria', () => {
-            const result: number = ['3', '5', '7', '9', '11', '13', '15', '17', '19', '21']
+            const result: boolean = ['3', '5', '7', '9', '11', '13', '15', '17', '19', '21']
                 .pipe(
                     map((n: string) => parseInt(n)),
                     none((n: number) => n%2 === 0)
@@ -122,7 +122,7 @@ describe('pipe', () => {
         });
     
         it('should pipe and return false because not all elements match criteria', () => {
-            const result: number = ['3', '5', '7', '9', '12', '13', '15', '17', '19', '21']
+            const result: boolean = ['3', '5', '7', '9', '12', '13', '15', '17', '19', '21']
                 .pipe(
                     map((n: string) => parseInt(n)),
                     none((n: number) => n%2 === 0)
@@ -151,7 +151,7 @@ describe('pipe', () => {
 
         describe('flatMap', () => {
             it('should pipe with flatMap as last operator', () => {
-                const result: number = ['1', '3', '5', '7', '9']
+                const result: Array<number> = ['1', '3', '5', '7', '9']
                     .pipe(
                         map((s: string) => parseInt(s)),
                         flatMap((n: number) => [n, n+1])
@@ -161,7 +161,7 @@ describe('pipe', () => {
             });
 
             it('should pipe with flatMap as intermediate operator', () => {
-                const result: number = ['1', '3', '5', '7', '9']
+                const result: Array<number> = ['1', '3', '5', '7', '9']
                     .pipe(
                         map((s: string) => parseInt(s)),
                         flatMap((n: number) => [n, n+1]),
@@ -184,7 +184,7 @@ describe('pipe', () => {
             });
 
             it('should pipe with flatMap as intermediate operator and filter in the end', () => {
-                const result: boolean = ['1', '3', '5', '7', '9']
+                const result: Array<number> = ['1', '3', '5', '7', '9']
                     .pipe(
                         map((s: string) => parseInt(s)),
                         flatMap((n: number) => [n, n+1]),
@@ -195,6 +195,70 @@ describe('pipe', () => {
             });
 
         });
+
+        describe('reducer', () => {
+
+            it('should successfully reduce to every', () => {
+                const result: boolean = ['1', '3', '5', '7', '9']
+                    .pipe(
+                        map((s: string) => parseInt(s)),
+                        reduceToEvery((n1: number, n2: number) => (n1+n2)%2 === 0)
+                    );
+                
+                expect(result).toBeTruthy();
+            });
+
+            it('should fail to reduce to every', () => {
+                const result: boolean = ['1', '3', '5', '6', '9']
+                    .pipe(
+                        map((s: string) => parseInt(s)),
+                        reduceToEvery((n1: number, n2: number) => (n1+n2)%2 === 0)
+                    );
+                
+                expect(result).toBeFalsy();
+            });
+
+            it('should successfully reduce to some', () => {
+                const result: boolean = ['1', '2', '5', '7', '9']
+                    .pipe(
+                        map((s: string) => parseInt(s)),
+                        reduceToSome((n1: number, n2: number) => (n1+n2)%2 === 0)
+                    );
+                
+                expect(result).toBeTruthy();
+            });
+
+            it('should fail to reduce to some', () => {
+                const result: boolean = ['1', '2', '5', '6', '9']
+                    .pipe(
+                        map((s: string) => parseInt(s)),
+                        reduceToSome((n1: number, n2: number) => (n1+n2)%2 === 0)
+                    );
+                
+                expect(result).toBeFalsy();
+            });
+
+            it('should successfully reduce to none', () => {
+                const result: boolean = ['1', '2', '5', '6', '9']
+                    .pipe(
+                        map((s: string) => parseInt(s)),
+                        reduceToNone((n1: number, n2: number) => (n1+n2)%2 === 0)
+                    );
+                
+                expect(result).toBeTruthy();
+            });
+
+            it('should fail to reduce to none', () => {
+                const result: boolean = ['1', '2', '5', '7', '9']
+                    .pipe(
+                        map((s: string) => parseInt(s)),
+                        reduceToNone((n1: number, n2: number) => (n1+n2)%2 === 0)
+                    );
+                
+                expect(result).toBeFalsy();
+            });
+
+        })
 
     });
 
