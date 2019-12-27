@@ -26,13 +26,18 @@ describe('someReduce', () => {
     });
 
     it('should not match criteria', () => {
-        const operator: Operator<number, boolean> = reduceToSome((n1: number, n2: number) => (n1+n2)%2 === 0);
-        expect(operator.perform(1)).toEqual({
+
+        interface Item {
+            value: number;
+        }
+
+        const operator: Operator<Item, boolean> = reduceToSome((n1: Item, n2: Item) => (n1.value+n2.value)%2 === 0);
+        expect(operator.perform({value: 1})).toEqual({
             value: false,
             done: false
         });
 
-        expect(operator.perform(4)).toEqual({
+        expect(operator.perform({value: 4})).toEqual({
             value: false,
             done: false
         });
