@@ -8,8 +8,7 @@ module.exports = function(config) {
         coverageAnalysis: 'off',
         tsconfigFile: 'tsconfig.json',
         mutate: [
-		    'src/**/*.ts',
-            '!src/**/*.spec.ts'
+		    'src/**/*.ts'
 		]
     });
 };

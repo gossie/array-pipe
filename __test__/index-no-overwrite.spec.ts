@@ -1,5 +1,5 @@
 import './polyfill.mock';
-import './index';
+import '../src/index';
 
 describe('pipe already exists', () => {
     it('should not override pipe when already set', () => {

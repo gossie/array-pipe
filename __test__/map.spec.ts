@@ -1,4 +1,4 @@
-import { Operator, map } from './operators';
+import { Operator, map } from '../src/operators';
 
 describe('map', () => {
 

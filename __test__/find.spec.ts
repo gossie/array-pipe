@@ -1,4 +1,4 @@
-import { Operator, TerminalOperator, find } from './operators';
+import { Operator, TerminalOperator, find } from '../src/operators';
 
 describe('find', () => {
 

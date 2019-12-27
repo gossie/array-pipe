@@ -1,4 +1,4 @@
-import { Operator, filter } from './operators';
+import { Operator, filter } from '../src/operators';
 
 describe('filter', () => {
 

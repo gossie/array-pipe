@@ -1,4 +1,4 @@
-import { Operator, distinct } from './operators';
+import { Operator, distinct } from '../src/operators';
 
 describe('distinct', () => {
 
