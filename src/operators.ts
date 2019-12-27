@@ -45,16 +45,16 @@ interface Mapper<F, T> {
 
 class DistinctOperator extends IntermediateOperator<any, any> {
 
-    private pastValues: Set<any> = new Set();
+    private _pastValues: Set<any> = new Set();
 
     public perform(from: any): OperatorResult<any> {
-        if (this.pastValues.has(from)) {
+        if (this._pastValues.has(from)) {
             return {
                 value: from,
                 skip: true,
             };
         } else {
-            this.pastValues.add(from);
+            this._pastValues.add(from);
             return {
                 value: from,
                 skip: false,
@@ -65,7 +65,7 @@ class DistinctOperator extends IntermediateOperator<any, any> {
 
 class EveryOperator<T> extends TerminalOperator<T, boolean> {
 
-    constructor(private tester: Predicate<T>) {
+    constructor(private readonly _tester: Predicate<T>) {
         super();
     }
 
@@ -74,7 +74,7 @@ class EveryOperator<T> extends TerminalOperator<T, boolean> {
     }
 
     public perform(from: T): OperatorResult<boolean> {
-        if (!this.tester(from)) {
+        if (!this._tester(from)) {
             return {
                 value: false,
                 done: true,
@@ -89,7 +89,7 @@ class EveryOperator<T> extends TerminalOperator<T, boolean> {
 
 class NoneOperator<T> extends TerminalOperator<T, boolean> {
 
-    constructor(private tester: Predicate<T>) {
+    constructor(private readonly _tester: Predicate<T>) {
         super();
     }
 
@@ -98,7 +98,7 @@ class NoneOperator<T> extends TerminalOperator<T, boolean> {
     }
 
     public perform(from: T): OperatorResult<boolean> {
-        if (this.tester(from)) {
+        if (this._tester(from)) {
             return {
                 value: false,
                 done: true
@@ -113,14 +113,14 @@ class NoneOperator<T> extends TerminalOperator<T, boolean> {
 
 class FilterOperator<T> extends IntermediateOperator<T, T> {
 
-    constructor(private tester: Predicate<T>) {
+    constructor(private readonly _tester: Predicate<T>) {
         super();
     }
 
     public perform(from: T): OperatorResult<T> {
         return {
             value: from,
-            skip: !this.tester(from)
+            skip: !this._tester(from)
         };
     }
 }
@@ -174,7 +174,7 @@ class MapOperator<F, T> extends IntermediateOperator<F, T> {
 
 class SomeOperator<T> extends TerminalOperator<T, boolean> {
 
-    constructor(private tester: Predicate<T>) {
+    constructor(private readonly _tester: Predicate<T>) {
         super();
     }
 
@@ -183,7 +183,7 @@ class SomeOperator<T> extends TerminalOperator<T, boolean> {
     }
 
     public perform(from: T): OperatorResult<boolean> {
-        if (this.tester(from)) {
+        if (this._tester(from)) {
             return {
                 value: true,
                 done: true
