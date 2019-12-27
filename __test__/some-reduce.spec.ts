@@ -26,7 +26,6 @@ describe('someReduce', () => {
     });
 
     it('should not match criteria', () => {
-
         interface Item {
             value: number;
         }

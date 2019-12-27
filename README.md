@@ -67,8 +67,32 @@ Some works similar to the `first`-operator except that not the element is return
 * __none__<br />
 `none` also applies the passed function to each element. As soon as one element evaluates to `true` the pipe immediately returns `false`. 
 * __reduceToSome__<br />
+Checks if there are two consecutive elements that fullfill the constraint passed. If a pair is found `true` is returned immediately.
+```typescript
+const result: boolean = [1, 2, 4, 5]
+    .pipe(
+        reduceToSome((n1: number, n2: number) => (n1+n2)%2 === 0)
+    )
+```
+`result` would be `true` because `(2+4)%2 === 0` is `true`. The pair of 4 and 5 would not be checked.
 * __reduceToEvery__<br />
+Checks if every two consecutive elements fullfill the constraint passed. If a pair is found that does not, `false` is returned immediately.
+```typescript
+const result: boolean = [1, 3, 4, 6]
+    .pipe(
+        reduceToEvery((n1: number, n2: number) => (n1+n2)%2 === 0)
+    )
+```
+`result` would be `false` because `(3+4)%2 === 0` is `false`. The pair of 4 and 6 would not be checked.
 * __reduceToNone__<br />
+Checks if no two consecutive elements fullfill the constraint passed. If a pair is found that does, `false` is returned immediately.
+```typescript
+const result: boolean = [1, 2, 4, 5]
+    .pipe(
+        reduceToNone((n1: number, n2: number) => (n1+n2)%2 === 0)
+    )
+```
+`result` would be `false` because `(2+4)%2 === 0` is `true`. The pair of 4 and 5 would not be checked.
 
 <a name="customoperator"></a>
 ## Write your own operator
