@@ -196,97 +196,29 @@ class SomeOperator<T> extends TerminalOperator<T, boolean> {
     }
 }
 
-class EveryReduceOperator<T> extends TerminalOperator<T, boolean> {
+class FastReduceOperator<T> extends TerminalOperator<T, boolean> {
 
-    private last: T;
+    private _last: T;
 
-    constructor(private reducer: BiPredicate<T>) {
+    constructor(private _reducer: BiPredicate<T>,
+                private _mapper: Mapper<boolean, OperatorResult<boolean>>,
+                private _fallbackValue: boolean,
+                private _firstResult: OperatorResult<boolean>) {
         super();
     }
 
     public getFallbackValue(): boolean {
-        return true;
+        return this._fallbackValue;
     }
 
     public perform(item: T): OperatorResult<boolean> {
         let result: OperatorResult<boolean>;
-        if (this.last) {
-            const reduction = this.reducer(this.last, item);
-            result = {
-                value: reduction,
-                done: !reduction
-            };
+        if (this._last) {
+            result = this._mapper(this._reducer(this._last, item));
         } else {
-            result = {
-                value: true,
-                done: false
-            };
+            result = this._firstResult;
         }
-        this.last = item;
-        return result;
-    }
-
-}
-
-class SomeReduceOperator<T> extends TerminalOperator<T, boolean> {
-
-    private last: T;
-
-    constructor(private reducer: BiPredicate<T>) {
-        super();
-    }
-
-    public getFallbackValue(): boolean {
-        return false;
-    }
-
-    public perform(item: T): OperatorResult<boolean> {
-        let result: OperatorResult<boolean>;
-        if (this.last) {
-            const reduction = this.reducer(this.last, item);
-            result = {
-                value: reduction,
-                done: reduction
-            };
-        } else {
-            result = {
-                value: false,
-                done: false
-            };
-        }
-        this.last = item;
-        return result;
-    }
-
-}
-
-class NoneReduceOperator<T> extends TerminalOperator<T, boolean> {
-
-    private last: T;
-
-    constructor(private reducer: BiPredicate<T>) {
-        super();
-    }
-
-    public getFallbackValue(): boolean {
-        return true;
-    }
-
-    public perform(item: T): OperatorResult<boolean> {
-        let result: OperatorResult<boolean>;
-        if (this.last) {
-            const reduction = this.reducer(this.last, item);
-            result = {
-                value: !reduction,
-                done: reduction
-            };
-        } else {
-            result = {
-                value: true,
-                done: false
-            };
-        }
-        this.last = item;
+        this._last = item;
         return result;
     }
 
@@ -325,13 +257,43 @@ export function none<T>(tester: Predicate<T>): TerminalOperator<T, boolean> {
 }
 
 export function reduceToEvery<T>(reducer: BiPredicate<T>): TerminalOperator<T, boolean> {
-    return new EveryReduceOperator<T>(reducer);
+    const mapper: Mapper<boolean, OperatorResult<boolean>> = (reduction: boolean) => {
+        return {
+            value: reduction,
+            done: !reduction
+        };
+    };
+
+    return new FastReduceOperator(reducer, mapper, true, {
+        value: true,
+        done: false
+    });
 }
 
 export function reduceToSome<T>(reducer: BiPredicate<T>): TerminalOperator<T, boolean> {
-    return new SomeReduceOperator<T>(reducer);
+    const mapper: Mapper<boolean, OperatorResult<boolean>> = (reduction: boolean) => {
+        return {
+            value: reduction,
+            done: reduction
+        };
+    };
+
+    return new FastReduceOperator(reducer, mapper, false, {
+        value: false,
+        done: false
+    });
 }
 
 export function reduceToNone<T>(reducer: BiPredicate<T>): TerminalOperator<T, boolean> {
-    return new NoneReduceOperator<T>(reducer);
+    const mapper: Mapper<boolean, OperatorResult<boolean>> = (reduction: boolean) => {
+        return {
+            value: !reduction,
+            done: reduction
+        };
+    };
+
+    return new FastReduceOperator(reducer, mapper, true, {
+        value: true,
+        done: false
+    });
 }
