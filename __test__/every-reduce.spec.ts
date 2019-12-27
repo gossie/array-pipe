@@ -3,12 +3,12 @@ import { Operator, TerminalOperator, everyReduce } from '../src/operators';
 describe('everyReduce', () => {
 
     it('should be terminal', () => {
-        const operator: Operator<number, boolean> = everyReduce((n: number) => n%2 === 0);
+        const operator: Operator<number, boolean> = everyReduce((n1: number, n2: number) => (n1+n2)%2 === 0);
         expect(operator.isTerminal()).toBeTruthy();
     });
 
     it('should have fallback value', () => {
-        const operator: TerminalOperator<number, boolean> = everyReduce((n: number) => n%2 === 0);
+        const operator: TerminalOperator<number, boolean> = everyReduce((n1: number, n2: number) => (n1+n2)%2 === 0);
         expect(operator.getFallbackValue()).toBeTruthy();
     });
 
