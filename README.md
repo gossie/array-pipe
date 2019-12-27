@@ -66,6 +66,9 @@ Some works similar to the `first`-operator except that not the element is return
 `every` also applies the passed function to each element. As soon as one element does not evaluate to `true` the pipe immediately returns `false`. 
 * __none__<br />
 `none` also applies the passed function to each element. As soon as one element evaluates to `true` the pipe immediately returns `false`. 
+* __reduceToSome__<br />
+* __reduceToEvery__<br />
+* __reduceToNone__<br />
 
 <a name="customoperator"></a>
 ## Write your own operator
