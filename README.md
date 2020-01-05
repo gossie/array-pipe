@@ -41,7 +41,7 @@ No more elements are mapped or checked, because it is not necessary.
 <a name="currentoperator"></a>
 ## Current Operators
 
-### Intermetiate Operators
+### Intermediate Operators
 
 There can be as many intermediate operators as you want in a pipe. In an intermediate operator is the last operator of a pipe, the result of the pipe call will be an array.
 
