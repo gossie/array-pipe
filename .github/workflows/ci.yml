@@ -9,7 +9,7 @@ jobs:
         with:
           node-version: 12
       - name: Install & Build
-        run: npm ci
+        run: npm install
       - name: Unit tests
         run: npm run test:ci
       - name: Mutation tests
